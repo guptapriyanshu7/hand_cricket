@@ -10,7 +10,7 @@ class GameRepositoryImpl implements GameRepository {
 
   @override
   Future<int> getBotChoice() async {
-    return localDataSource.getRandomNumber(1, 6);
+    return localDataSource.getRandomNumber();
   }
 
   @override

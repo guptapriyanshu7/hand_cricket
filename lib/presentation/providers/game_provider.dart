@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/data/models/game_state_model.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
-import 'package:hand_cricket/domain/repositories/game_repository.dart';
+import 'package:hand_cricket/domain/usecases/evaluate_outcome.dart';
 import 'dart:async';
 
+import 'package:hand_cricket/domain/usecases/get_bot_choice.dart';
+import 'package:hand_cricket/domain/usecases/reset_game.dart';
+
 class GameProvider with ChangeNotifier {
-  GameRepository gameRepository;
+  final GetBotChoice getBotChoice;
+  final EvaluateOutcome evaluateOutcome;
+  final ResetGame resetGame;
+
   Timer? _timer;
   static const int timeLimit = 10;
   int _remainingTime = timeLimit;
 
   GameState _state;
 
-  GameProvider({required this.gameRepository})
-      : _state = gameRepository.resetGame() {
+  GameProvider(
+      {required this.getBotChoice,
+      required this.evaluateOutcome,
+      required this.resetGame})
+      : _state = resetGame() {
     _startTimer();
   }
 
@@ -57,7 +66,7 @@ class GameProvider with ChangeNotifier {
     ).copyWith(player: _state.player.copyWith(currentChoice: number));
 
     // get bot choice
-    final botChoice = await gameRepository.getBotChoice();
+    final botChoice = await getBotChoice();
 
     // update bot choice
     _state = GameStateModel.fromEntity(
@@ -65,12 +74,12 @@ class GameProvider with ChangeNotifier {
     ).copyWith(bot: _state.bot.copyWith(currentChoice: botChoice));
 
     // evaluate outcome of this state
-    _state = gameRepository.evaluateOutcome(_state);
+    _state = evaluateOutcome(_state);
     notifyListeners();
   }
 
   void reset() {
-    _state = gameRepository.resetGame();
+    _state = resetGame();
     _startTimer();
     notifyListeners();
   }
