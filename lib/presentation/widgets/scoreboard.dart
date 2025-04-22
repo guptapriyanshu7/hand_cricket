@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ScoreBoard extends StatelessWidget {
-
   const ScoreBoard({super.key});
 
   @override
@@ -16,12 +15,29 @@ class ScoreBoard extends StatelessWidget {
               children: [
                 ClipPath(
                   clipper: RightSlantClipper(),
-                  child: Container(color: Color(0xFFD4B052)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFFD4B052),
+                          Color.fromARGB(255, 235, 204, 124),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
                 ),
                 ClipPath(
                   clipper: MiddleLeftSlantClipper(),
                   child: Container(
-                    color: Colors.blueGrey,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.blueGrey, Colors.blueGrey[900]!],
+                        begin: Alignment.bottomRight,
+                        end: Alignment.topLeft,
+                      ),
+                    ),
                     padding: const EdgeInsets.only(
                       top: 5,
                       left: 45,
@@ -61,12 +77,29 @@ class ScoreBoard extends StatelessWidget {
               children: [
                 ClipPath(
                   clipper: LeftSlantClipper(),
-                  child: Container(color: Color(0xFFC42C31)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFFC42C31),
+                          Color.fromARGB(255, 235, 62, 67),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
                 ),
                 ClipPath(
                   clipper: MiddleRightSlantClipper(),
                   child: Container(
-                    color: Colors.blueGrey,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.blueGrey, Colors.blueGrey[900]!],
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                      ),
+                    ),
                     padding: const EdgeInsets.only(
                       top: 5,
                       left: 35,
@@ -85,7 +118,7 @@ class ScoreBoard extends StatelessWidget {
                               color: Color(0xFF25A244),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: Colors.black.withValues(alpha: 0.3),
                                   blurRadius: 2,
                                   offset: Offset(0, 1),
                                 ),
