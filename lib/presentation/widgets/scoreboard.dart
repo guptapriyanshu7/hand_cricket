@@ -14,11 +14,11 @@ class ScoreBoard extends StatelessWidget {
     final ballsRemaining = context.select(
       (GameProvider provider) => provider.state.ballsRemaining,
     );
-    final playerCurrentChoice = context.select(
-      (GameProvider provider) => provider.state.player.currentChoice,
+    final playerRunHistory = context.select(
+      (GameProvider provider) => provider.state.player.runHistory,
     );
-    final botCurrentChoice = context.select(
-      (GameProvider provider) => provider.state.bot.currentChoice,
+    final botRunHistory = context.select(
+      (GameProvider provider) => provider.state.bot.runHistory,
     );
     return SizedBox(
       height: 100,
@@ -100,7 +100,7 @@ class ScoreBoard extends StatelessWidget {
                                         ? null
                                         : Center(
                                           child: Text(
-                                            playerCurrentChoice.toString(),
+                                            playerRunHistory[index].toString(),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class ScoreBoard extends StatelessWidget {
                                         ? null
                                         : Center(
                                           child: Text(
-                                            botCurrentChoice.toString(),
+                                            botRunHistory[index].toString(),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,

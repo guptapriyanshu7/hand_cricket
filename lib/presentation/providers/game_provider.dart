@@ -61,17 +61,29 @@ class GameProvider with ChangeNotifier {
     _startTimer();
 
     // update player choice
-    _state = GameStateModel.fromEntity(
-      _state,
-    ).copyWith(player: _state.player.copyWith(currentChoice: number));
+    _state = GameStateModel.fromEntity(_state).copyWith(
+      player: _state.player.copyWith(
+        currentChoice: number,
+        runHistory:
+            _state.phase == GamePhase.playerBatting
+                ? [..._state.player.runHistory, number]
+                : _state.player.runHistory,
+      ),
+    );
 
     // get bot choice
     final botChoice = getBotChoice();
 
     // update bot choice
-    _state = GameStateModel.fromEntity(
-      _state,
-    ).copyWith(bot: _state.bot.copyWith(currentChoice: botChoice));
+    _state = GameStateModel.fromEntity(_state).copyWith(
+      bot: _state.bot.copyWith(
+        currentChoice: botChoice,
+        runHistory:
+            _state.phase == GamePhase.botBatting
+                ? [..._state.bot.runHistory, botChoice]
+                : _state.bot.runHistory,
+      ),
+    );
 
     // evaluate outcome of this state
     _state = evaluateOutcome(_state);
