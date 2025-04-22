@@ -40,10 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Hand Cricket',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: ThemeData.dark(),
         home: const GameScreen(),
       ),
     );

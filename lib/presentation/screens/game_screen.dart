@@ -8,7 +8,10 @@
 import 'package:flutter/material.dart';
 // import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
-import 'package:hand_cricket/presentation/widgets/playing_field.dart';
+import 'package:hand_cricket/presentation/widgets/countdown_timer.dart';
+import 'package:hand_cricket/presentation/widgets/game_info_bar.dart';
+import 'package:hand_cricket/presentation/widgets/hand_animation.dart';
+import 'package:hand_cricket/presentation/widgets/number_pad.dart';
 import 'package:hand_cricket/presentation/widgets/scoreboard.dart';
 import 'package:provider/provider.dart';
 
@@ -34,14 +37,19 @@ class GameScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     ScoreBoard(),
-                    PlayingField(),
-                    // GameStatusBar(phase: state.phase),
-                    // HandAnimation(
-                    //   playerChoice: state.player.currentChoice,
-                    //   botChoice: state.bot.currentChoice,
-                    // ),
-                    // const CountdownTimer(duration: 10),
-                    // NumberPad(onNumberSelected: provider.playerChooses),
+                    GameInfoBar(),
+                    const SizedBox(height: 60),
+                    HandAnimation(
+                      // playerChoice: state.player.currentChoice,
+                      // botChoice: state.bot.currentChoice,
+                    ),
+                    const SizedBox(height: 120),
+                    const CountdownTimer(),
+                    const SizedBox(height: 20),
+                    NumberPad(
+                      // onNumberSelected: provider.playerChooses
+                    ),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
