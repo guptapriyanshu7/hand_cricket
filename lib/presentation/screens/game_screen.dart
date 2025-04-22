@@ -22,39 +22,33 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(title: const Text('Hand Cricket')),
-        body: Consumer<GameProvider>(
-          builder: (context, provider, _) {
-            // final state = provider.state;
-            return SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/background.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    ScoreBoard(),
-                    GameInfoBar(),
-                    const SizedBox(height: 60),
-                    HandAnimation(
-                      // playerChoice: state.player.currentChoice,
-                      // botChoice: state.bot.currentChoice,
-                    ),
-                    const SizedBox(height: 120),
-                    const CountdownTimer(),
-                    const SizedBox(height: 20),
-                    NumberPad(
-                      // onNumberSelected: provider.playerChooses
-                    ),
-                    const SizedBox(height: 50),
-                  ],
-                ),
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
-            );
-          },
+            ),
+            child: Column(
+              children: [
+                ScoreBoard(),
+                GameInfoBar(),
+                const SizedBox(height: 60),
+                HandAnimation(
+                  // playerChoice: state.player.currentChoice,
+                  // botChoice: state.bot.currentChoice,
+                ),
+                const SizedBox(height: 120),
+                const CountdownTimer(),
+                const SizedBox(height: 20),
+                NumberPad(
+                  // onNumberSelected: provider.playerChooses
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
         ),
       ),
     );

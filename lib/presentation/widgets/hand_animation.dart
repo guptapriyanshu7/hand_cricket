@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/core/rive_utils.dart';
+import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'dart:math';
 
@@ -14,7 +16,7 @@ class _HandAnimationState extends State<HandAnimation> {
   StateMachineController? _playerHandController;
   StateMachineController? _botHandController;
   static const handStateMachineName = 'State Machine 1';
-  // static const handInputName = 'Input';
+  static const handInputName = 'Input';
 
   @override
   void dispose() {
@@ -23,23 +25,25 @@ class _HandAnimationState extends State<HandAnimation> {
     super.dispose();
   }
 
-  // void _triggerPlayerHandAnimation() {
-  //   if (_playerHandController == null) return;
-  //   final smiNumberInput = RiveUtils.getNumberInput(
-  //     _playerHandController!,
-  //     handInputName,
-  //   );
-  //   smiNumberInput?.value = 3;
-  // }
+  void _triggerPlayerHandAnimation() {
+    if (_playerHandController == null) return;
+    final smiNumberInput = RiveUtils.getNumberInput(
+      _playerHandController!,
+      handInputName,
+    );
+    smiNumberInput?.value =
+        context.read<GameProvider>().state.player.currentChoice * 1.0;
+  }
 
-  // void _triggerBotHandAnimation() {
-  //   if (_botHandController == null) return;
-  //   final smiNumberInput = RiveUtils.getNumberInput(
-  //     _botHandController!,
-  //     handInputName,
-  //   );
-  //   smiNumberInput?.value = 3;
-  // }
+  void _triggerBotHandAnimation() {
+    if (_botHandController == null) return;
+    final smiNumberInput = RiveUtils.getNumberInput(
+      _botHandController!,
+      handInputName,
+    );
+    smiNumberInput?.value =
+        context.read<GameProvider>().state.bot.currentChoice * 1.0;
+  }
 
   @override
   Widget build(BuildContext context) {

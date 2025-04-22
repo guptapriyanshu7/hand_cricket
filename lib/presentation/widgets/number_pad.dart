@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:provider/provider.dart';
 
 const mapNumberButtonAssetsToIndex = {
   1: 'assets/one.png',
@@ -23,6 +25,8 @@ class _NumberPadState extends State<NumberPad> {
     setState(() {
       _isButtonPressedList[index] = true;
     });
+
+    context.read<GameProvider>().playerChooses(index + 1);
 
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {

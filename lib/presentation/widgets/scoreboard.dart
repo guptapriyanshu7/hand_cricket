@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:hand_cricket/domain/entities/game_state.dart';
+import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:provider/provider.dart';
 
 class ScoreBoard extends StatelessWidget {
   const ScoreBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final gamePhase = context.select(
+      (GameProvider provider) => provider.state.phase,
+    );
+    final ballsRemaining = context.select(
+      (GameProvider provider) => provider.state.ballsRemaining,
+    );
+    final playerCurrentChoice = context.select(
+      (GameProvider provider) => provider.state.player.currentChoice,
+    );
+    final botCurrentChoice = context.select(
+      (GameProvider provider) => provider.state.bot.currentChoice,
+    );
     return SizedBox(
       height: 100,
       width: double.infinity,
@@ -53,7 +68,24 @@ class ScoreBoard extends StatelessWidget {
                             height: 24,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.8),
+                              color:
+                                  gamePhase == GamePhase.playerBatting
+                                      ? 6 - ballsRemaining < index + 1
+                                          ? Colors.black
+                                          : Colors.green
+                                      : Colors.black,
+
+                              image:
+                                  gamePhase == GamePhase.botBatting
+                                      ? DecorationImage(
+                                        image: AssetImage('assets/ball.png'),
+                                        fit: BoxFit.cover,
+                                        opacity:
+                                            6 - ballsRemaining < index + 1
+                                                ? 0.5
+                                                : 1.0,
+                                      )
+                                      : null,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withValues(alpha: 0.3),
@@ -62,6 +94,20 @@ class ScoreBoard extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            child:
+                                gamePhase == GamePhase.playerBatting
+                                    ? 6 - ballsRemaining < index + 1
+                                        ? null
+                                        : Center(
+                                          child: Text(
+                                            playerCurrentChoice.toString(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        )
+                                    : null,
                           ),
                         );
                       }),
@@ -115,7 +161,23 @@ class ScoreBoard extends StatelessWidget {
                             height: 24,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Color(0xFF25A244),
+                              color:
+                                  gamePhase == GamePhase.botBatting
+                                      ? 6 - ballsRemaining < index + 1
+                                          ? Colors.black
+                                          : Colors.green
+                                      : Colors.black,
+                              image:
+                                  gamePhase == GamePhase.playerBatting
+                                      ? DecorationImage(
+                                        image: AssetImage('assets/ball.png'),
+                                        fit: BoxFit.cover,
+                                        opacity:
+                                            6 - ballsRemaining < index + 1
+                                                ? 0.5
+                                                : 1.0,
+                                      )
+                                      : null,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withValues(alpha: 0.3),
@@ -124,15 +186,20 @@ class ScoreBoard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Center(
-                              child: Text(
-                                '${index + 1}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                            child:
+                                gamePhase == GamePhase.botBatting
+                                    ? 6 - ballsRemaining < index + 1
+                                        ? null
+                                        : Center(
+                                          child: Text(
+                                            botCurrentChoice.toString(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        )
+                                    : null,
                           ),
                         );
                       }),

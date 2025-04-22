@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:provider/provider.dart';
 
 class GameInfoBar extends StatelessWidget {
   const GameInfoBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final playerScore = context.select(
+      (GameProvider provider) => provider.state.player.score,
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
@@ -29,8 +34,8 @@ class GameInfoBar extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: const Text(
-                'To Win: 0',
+              child: Text(
+                'To Win: $playerScore',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),

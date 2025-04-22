@@ -18,11 +18,11 @@ class GameProvider with ChangeNotifier {
 
   GameState _state;
 
-  GameProvider(
-      {required this.getBotChoice,
-      required this.evaluateOutcome,
-      required this.resetGame})
-      : _state = resetGame() {
+  GameProvider({
+    required this.getBotChoice,
+    required this.evaluateOutcome,
+    required this.resetGame,
+  }) : _state = resetGame() {
     _startTimer();
   }
 
