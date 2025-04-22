@@ -22,4 +22,19 @@ class GameState {
     required this.phase,
     this.ballsRemaining = 6,
   });
+
+  // copyWith method to create a new instance of GameState with updated values
+  GameState copyWith({
+    Player? player,
+    Player? bot,
+    GamePhase? phase,
+    int? ballsRemaining,
+  }) {
+    return GameState(
+      player: player ?? this.player,
+      bot: bot ?? this.bot,
+      phase: phase ?? this.phase,
+      ballsRemaining: ballsRemaining ?? this.ballsRemaining,
+    );
+  }
 }
