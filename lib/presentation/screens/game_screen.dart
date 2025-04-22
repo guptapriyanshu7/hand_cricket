@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:hand_cricket/presentation/widgets/playing_field.dart';
 import 'package:hand_cricket/presentation/widgets/scoreboard.dart';
 import 'package:provider/provider.dart';
 
@@ -16,24 +17,37 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Hand Cricket')),
-      body: Consumer<GameProvider>(
-        builder: (context, provider, _) {
-          final state = provider.state;
-          return Column(
-            children: [
-              ScoreBoard(),
-              // GameStatusBar(phase: state.phase),
-              // HandAnimation(
-              //   playerChoice: state.player.currentChoice,
-              //   botChoice: state.bot.currentChoice,
-              // ),
-              // const CountdownTimer(duration: 10),
-              // NumberPad(onNumberSelected: provider.playerChooses),
-            ],
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(title: const Text('Hand Cricket')),
+        body: Consumer<GameProvider>(
+          builder: (context, provider, _) {
+            final state = provider.state;
+            return SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/background.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    ScoreBoard(),
+                    PlayingField(),
+                    // GameStatusBar(phase: state.phase),
+                    // HandAnimation(
+                    //   playerChoice: state.player.currentChoice,
+                    //   botChoice: state.bot.currentChoice,
+                    // ),
+                    // const CountdownTimer(duration: 10),
+                    // NumberPad(onNumberSelected: provider.playerChooses),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

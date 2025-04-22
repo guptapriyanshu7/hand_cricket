@@ -120,7 +120,7 @@ class RightSlantClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, 0);
-    path.lineTo(size.width * 0.85, 0);
+    path.lineTo(size.width * 0.83, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
@@ -135,11 +135,11 @@ class LeftSlantClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(size.width * 0.15, 0);
+    path.lineTo(size.width * 0.17, 0);
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
-    path.lineTo(size.width * 0.15, 0);
+    path.lineTo(size.width * 0.17, 0);
     path.close();
     return path;
   }
