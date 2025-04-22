@@ -25,25 +25,24 @@ class _HandAnimationState extends State<HandAnimation> {
     super.dispose();
   }
 
-  void _triggerPlayerHandAnimation() {
+  void _triggerPlayerHandAnimation(int playerChoice) {
     if (_playerHandController == null) return;
     final smiNumberInput = RiveUtils.getNumberInput(
       _playerHandController!,
       handInputName,
     );
-    smiNumberInput?.value =
-        context.read<GameProvider>().state.player.currentChoice * 1.0;
+    smiNumberInput?.value = playerChoice * 1.0;
   }
 
-  void _triggerBotHandAnimation() {
+  void _triggerBotHandAnimation(int botChoice) {
     if (_botHandController == null) return;
     final smiNumberInput = RiveUtils.getNumberInput(
       _botHandController!,
       handInputName,
     );
-    smiNumberInput?.value =
-        context.read<GameProvider>().state.bot.currentChoice * 1.0;
+    smiNumberInput?.value = botChoice * 1.0;
   }
+
 
   @override
   Widget build(BuildContext context) {

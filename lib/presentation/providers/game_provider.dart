@@ -54,7 +54,7 @@ class GameProvider with ChangeNotifier {
     }
   }
 
-  Future<void> playerChooses(int number) async {
+  void playerChooses(int number) {
     if (_state.phase == GamePhase.gameOver) return;
 
     // Reset timer on valid choice
@@ -66,7 +66,7 @@ class GameProvider with ChangeNotifier {
     ).copyWith(player: _state.player.copyWith(currentChoice: number));
 
     // get bot choice
-    final botChoice = await getBotChoice();
+    final botChoice = getBotChoice();
 
     // update bot choice
     _state = GameStateModel.fromEntity(

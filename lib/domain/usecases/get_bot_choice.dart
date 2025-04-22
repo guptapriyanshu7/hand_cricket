@@ -8,7 +8,7 @@ class GetBotChoice {
 
   GetBotChoice(this.repository);
 
-  Future<int> call() async {
-    return await repository.getBotChoice();
+  int call() {
+    return  repository.getBotChoice();
   }
 }

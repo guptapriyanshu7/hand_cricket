@@ -10,5 +10,5 @@ import 'package:hand_cricket/domain/entities/game_state.dart';
 abstract class GameRepository {
   GameState evaluateOutcome(GameState currentState);
   GameState resetGame();
-  Future<int> getBotChoice();
+  int getBotChoice();
 }
