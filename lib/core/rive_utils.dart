@@ -1,7 +1,7 @@
 import 'package:rive/rive.dart';
 
 class RiveUtils {
-  static StateMachineController getControllerForAnimation(
+  static StateMachineController? getControllerForAnimation(
     Artboard artboard, {
     required String stateMachineName,
   }) {
@@ -9,7 +9,9 @@ class RiveUtils {
       artboard,
       stateMachineName,
     );
-    artboard.addController(controller!);
+    if (controller != null) {
+      artboard.addController(controller);
+    }
     return controller;
   }
 
