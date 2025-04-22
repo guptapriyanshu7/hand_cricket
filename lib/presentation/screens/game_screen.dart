@@ -6,7 +6,7 @@
 // then the numpad for the runs
 
 import 'package:flutter/material.dart';
-import 'package:hand_cricket/domain/entities/game_state.dart';
+// import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/playing_field.dart';
 import 'package:hand_cricket/presentation/widgets/scoreboard.dart';
@@ -22,7 +22,7 @@ class GameScreen extends StatelessWidget {
         // appBar: AppBar(title: const Text('Hand Cricket')),
         body: Consumer<GameProvider>(
           builder: (context, provider, _) {
-            final state = provider.state;
+            // final state = provider.state;
             return SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(
