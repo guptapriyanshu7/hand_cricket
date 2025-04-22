@@ -1,7 +1,14 @@
 import 'dart:math';
 
-class GameLocalDataSource {
-  Future<int> getRandomNumber(int min, int max) async {
-    return Random().nextInt(max - min + 1) + min;
+abstract class GameLocalDataSource {
+  int getRandomNumber(int min, int max);
+}
+
+class GameLocalDataSourceImpl implements GameLocalDataSource {
+  final Random _random = Random();
+
+  @override
+  int getRandomNumber(int min, int max) {
+    return min + _random.nextInt(max - min + 1);
   }
 }
