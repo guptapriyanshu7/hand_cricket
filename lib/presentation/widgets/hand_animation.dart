@@ -13,6 +13,8 @@ class HandAnimation extends StatefulWidget {
 class _HandAnimationState extends State<HandAnimation> {
   StateMachineController? _playerHandController;
   StateMachineController? _botHandController;
+  static const handStateMachineName = 'State Machine 1';
+  // static const handInputName = 'Input';
 
   @override
   void dispose() {
@@ -21,23 +23,23 @@ class _HandAnimationState extends State<HandAnimation> {
     super.dispose();
   }
 
-  void _triggerPlayerHandAnimation() {
-    if (_playerHandController == null) return;
-    final smiNumberInput = RiveUtils.getNumberInput(
-      _playerHandController!,
-      'Input',
-    );
-    smiNumberInput?.value = 3;
-  }
+  // void _triggerPlayerHandAnimation() {
+  //   if (_playerHandController == null) return;
+  //   final smiNumberInput = RiveUtils.getNumberInput(
+  //     _playerHandController!,
+  //     handInputName,
+  //   );
+  //   smiNumberInput?.value = 3;
+  // }
 
-  void _triggerBotHandAnimation() {
-    if (_botHandController == null) return;
-    final smiNumberInput = RiveUtils.getNumberInput(
-      _botHandController!,
-      'Input',
-    );
-    smiNumberInput?.value = 3;
-  }
+  // void _triggerBotHandAnimation() {
+  //   if (_botHandController == null) return;
+  //   final smiNumberInput = RiveUtils.getNumberInput(
+  //     _botHandController!,
+  //     handInputName,
+  //   );
+  //   smiNumberInput?.value = 3;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,31 +57,49 @@ class _HandAnimationState extends State<HandAnimation> {
             child: Transform(
               alignment: Alignment.center,
               transform: Matrix4.rotationY(pi),
-              child: RiveAnimation.asset(
-                'assets/hand_cricket.riv',
-                alignment: Alignment.centerRight,
+              child: _HandRiveAnimationWidget(
                 onInit: (artboard) {
                   _playerHandController = RiveUtils.getControllerForAnimation(
                     artboard,
-                    stateMachineName: 'State Machine 1',
+                    stateMachineName: handStateMachineName,
                   );
                 },
               ),
             ),
           ),
           Expanded(
-            child: RiveAnimation.asset(
-              'assets/hand_cricket.riv',
-              alignment: Alignment.centerRight,
+            child: _HandRiveAnimationWidget(
               onInit: (artboard) {
                 _botHandController = RiveUtils.getControllerForAnimation(
                   artboard,
-                  stateMachineName: 'State Machine 1',
+                  stateMachineName: handStateMachineName,
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _HandRiveAnimationWidget extends StatelessWidget {
+  final void Function(Artboard) onInit;
+
+  const _HandRiveAnimationWidget({required this.onInit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.scale(
+      scale: 1.2,
+      alignment: Alignment.centerRight,
+      child: RiveAnimation.asset(
+        'assets/hand_cricket.riv',
+        alignment: Alignment.centerRight,
+        fit: BoxFit.cover,
+        onInit: (artboard) {
+          onInit(artboard);
+        },
       ),
     );
   }
