@@ -15,6 +15,8 @@ class HandAnimation extends StatefulWidget {
 class _HandAnimationState extends State<HandAnimation> {
   StateMachineController? _playerHandController;
   StateMachineController? _botHandController;
+  SMINumber? playerHandSmiNumber;
+  SMINumber? botHandSmiNumber;
   static const handStateMachineName = 'State Machine 1';
   static const handInputName = 'Input';
 
@@ -26,26 +28,29 @@ class _HandAnimationState extends State<HandAnimation> {
   }
 
   void _triggerPlayerHandAnimation(int playerChoice) {
-    if (_playerHandController == null) return;
-    final smiNumberInput = RiveUtils.getNumberInput(
-      _playerHandController!,
-      handInputName,
-    );
-    smiNumberInput?.value = playerChoice * 1.0;
+    playerHandSmiNumber?.value = playerChoice * 1.0;
+    Future.delayed(const Duration(milliseconds: 800), () {
+      playerHandSmiNumber?.value = 0.0;
+    });
   }
 
   void _triggerBotHandAnimation(int botChoice) {
-    if (_botHandController == null) return;
-    final smiNumberInput = RiveUtils.getNumberInput(
-      _botHandController!,
-      handInputName,
-    );
-    smiNumberInput?.value = botChoice * 1.0;
+    botHandSmiNumber?.value = botChoice * 1.0;
+    Future.delayed(const Duration(milliseconds: 800), () {
+      botHandSmiNumber?.value = 0.0;
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
+    final playerChoice = context.select(
+      (GameProvider provider) => provider.state.player.currentChoice,
+    );
+    final botChoice = context.select(
+      (GameProvider provider) => provider.state.bot.currentChoice,
+    );
+    _triggerPlayerHandAnimation(playerChoice);
+    _triggerBotHandAnimation(botChoice);
     return Container(
       width: 350,
       height: 200,
@@ -66,6 +71,11 @@ class _HandAnimationState extends State<HandAnimation> {
                     artboard,
                     stateMachineName: handStateMachineName,
                   );
+                  if (_playerHandController == null) return;
+                  playerHandSmiNumber = RiveUtils.getNumberInput(
+                    _playerHandController!,
+                    handInputName,
+                  );
                 },
               ),
             ),
@@ -76,6 +86,11 @@ class _HandAnimationState extends State<HandAnimation> {
                 _botHandController = RiveUtils.getControllerForAnimation(
                   artboard,
                   stateMachineName: handStateMachineName,
+                );
+                if (_botHandController == null) return;
+                botHandSmiNumber = RiveUtils.getNumberInput(
+                  _botHandController!,
+                  handInputName,
                 );
               },
             ),
