@@ -6,6 +6,7 @@
 // then the numpad for the runs
 
 import 'package:flutter/material.dart';
+import 'package:hand_cricket/presentation/screens/game_conditional_overlay.dart';
 // import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/widgets/countdown_timer.dart';
 import 'package:hand_cricket/presentation/widgets/game_info_bar.dart';
@@ -28,17 +29,22 @@ class GameScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Column(
+            child: Stack(
               children: [
-                ScoreBoard(),
-                GameInfoBar(),
-                const SizedBox(height: 60),
-                HandAnimation(),
-                const SizedBox(height: 120),
-                const CountdownTimer(),
-                const SizedBox(height: 20),
-                NumberPad(),
-                const SizedBox(height: 20),
+                Column(
+                  children: [
+                    ScoreBoard(),
+                    GameInfoBar(),
+                    const SizedBox(height: 60),
+                    HandAnimation(),
+                    const SizedBox(height: 120),
+                    const CountdownTimer(),
+                    const SizedBox(height: 20),
+                    NumberPad(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+                GameConditionalOverlay(),
               ],
             ),
           ),
