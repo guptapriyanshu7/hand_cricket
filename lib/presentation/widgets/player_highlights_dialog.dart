@@ -10,7 +10,7 @@ void playerHighlightsDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 1), () {
           if (context.mounted) Navigator.of(context).pop();
         });
         return Dialog(

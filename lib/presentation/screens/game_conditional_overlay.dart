@@ -11,27 +11,40 @@ class GameConditionalOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameState = context.select((GameProvider provider) => provider.state);
-    if (gameState.phase == GamePhase.botBatting &&
-        gameState.ballsRemaining == 6 &&
-        gameState.player.isOut) {
-      playerHighlightsDialog(context, 'assets/out.png');
-      return SizedBox.shrink();
-    }
 
     if (gameState.phase == GamePhase.playerBatting &&
         gameState.player.currentChoice == 6) {
       playerHighlightsDialog(context, 'assets/sixer.png');
-      return SizedBox.shrink();
     }
 
     if (gameState.phase == GamePhase.botBatting &&
         gameState.ballsRemaining == 6) {
-      playerHighlightsDialog(
-        context,
-        'assets/game_defend.webp',
-        supportingText: gameState.player.score.toString(),
+      if (gameState.player.isOut) {
+        playerHighlightsDialog(context, 'assets/out.png');
+      }
+
+      // if last ball player played was a six
+      if (gameState.player.currentChoice == 6) {
+        playerHighlightsDialog(context, 'assets/sixer.png');
+      }
+
+      Future.delayed(
+        Duration(
+          milliseconds:
+              gameState.player.isOut || (gameState.player.currentChoice == 6)
+                  ? 1200
+                  : 0,
+        ),
+        () {
+          if (context.mounted) {
+            playerHighlightsDialog(
+              context,
+              'assets/game_defend.webp',
+              supportingText: gameState.player.score.toString(),
+            );
+          }
+        },
       );
-      return SizedBox.shrink();
     }
 
     if (gameState.phase == GamePhase.gameOver) {
