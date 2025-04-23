@@ -1,18 +1,8 @@
-import 'package:hand_cricket/data/datasources/local/game_local_data_source.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/domain/entities/player.dart';
 import 'package:hand_cricket/domain/repositories/game_repository.dart';
 
 class GameRepositoryImpl implements GameRepository {
-  final GameLocalDataSource localDataSource;
-
-  GameRepositoryImpl({required this.localDataSource});
-
-  @override
-  int getBotChoice()  {
-    return localDataSource.getRandomNumber();
-  }
-
   @override
   GameState evaluateOutcome(GameState currentState) {
     final player = currentState.player;
