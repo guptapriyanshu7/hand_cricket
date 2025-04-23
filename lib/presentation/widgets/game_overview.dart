@@ -11,7 +11,7 @@ class GameOverview extends StatelessWidget {
     final gameState = context.select((GameProvider provider) => provider.state);
     return Container(
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.9)),
+      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.8)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

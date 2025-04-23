@@ -18,11 +18,10 @@ class GameInfoBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'You',
+          Text(
+            'You: $playerScore',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          // display 'to win' in a golden gradient small container with black text and rounded bottom corners
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -38,13 +37,13 @@ class GameInfoBar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                'To Win: ${playerScore - botScore}',
+                'To Win: ${playerScore - botScore < 0 ? 0 : playerScore - botScore}',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           ),
-          const Text(
-            'Bot',
+          Text(
+            'Bot: $botScore',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ],

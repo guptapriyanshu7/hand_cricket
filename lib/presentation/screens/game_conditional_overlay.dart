@@ -24,7 +24,7 @@ class GameConditionalOverlay extends StatelessWidget {
       }
 
       // if last ball player played was a six
-      if (gameState.player.currentChoice == 6) {
+      if (gameState.player.currentChoice == 6 && !gameState.player.isOut) {
         playerHighlightsDialog(context, 'assets/sixer.png');
       }
 

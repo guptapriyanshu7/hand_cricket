@@ -92,6 +92,10 @@ class GameProvider with ChangeNotifier {
     // evaluate outcome of this state
     _state = evaluateOutcome(_state);
 
+    if (_state.phase == GamePhase.gameOver) {
+      _timer?.cancel();
+    }
+
     notifyListeners();
 
     Future.delayed(const Duration(milliseconds: 800), () {

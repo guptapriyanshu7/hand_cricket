@@ -73,8 +73,7 @@ class ScoreBoard extends StatelessWidget {
                       children: List.generate(6, (index) {
                         return Center(
                           child:
-                              gamePhase == GamePhase.playerBatting ||
-                                      gamePhase == GamePhase.gameOver
+                              gamePhase == GamePhase.playerBatting
                                   ? PlayerScoreCircle(
                                     runTaken: getRunForIndex(
                                       playerRunHistory,
