@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/app_theme.dart';
 
+// custom made text widget to display below the bails asset
 class GameResultWidget extends StatelessWidget {
   final String result;
   const GameResultWidget({super.key, required this.result});

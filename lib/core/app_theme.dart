@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// app theme file declaring common used colors and gradients
 class AppTheme {
   static const Color primaryGold = Color(0xFFD4B052);
   static const Color secondaryGold = Color(0xFFEBCC7C);

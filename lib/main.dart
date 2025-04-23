@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    // using screenutil to adapt the screen size and text size
     return ScreenUtilInit(
       designSize: Size(480, 940),
       minTextAdapt: true,

@@ -8,6 +8,8 @@ import 'package:hand_cricket/presentation/widgets/player_bowl_circle.dart';
 import 'package:hand_cricket/presentation/widgets/player_score_circle.dart';
 import 'package:provider/provider.dart';
 
+// a widget to display the scoreboard of the game (player - left and bot - right)
+// will update as who is batting and who is bowling
 class ScoreBoard extends StatelessWidget {
   const ScoreBoard({super.key});
 

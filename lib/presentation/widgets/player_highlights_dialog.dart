@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/app_theme.dart';
 
+// to show six, out, to defend statuses
 void playerHighlightsDialog(
   BuildContext context,
   String assetImage, {

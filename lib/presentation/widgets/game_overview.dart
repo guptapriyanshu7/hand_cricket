@@ -4,6 +4,7 @@ import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/game_result_widget.dart';
 import 'package:provider/provider.dart';
 
+// this widget will notify the outcome of the game and insist the user to play again
 class GameOverview extends StatelessWidget {
   const GameOverview({super.key});
 

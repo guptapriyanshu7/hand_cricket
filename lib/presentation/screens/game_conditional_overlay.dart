@@ -12,16 +12,19 @@ class GameConditionalOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameState = context.select((GameProvider provider) => provider.state);
 
+    // if player batting and hits a six
     if (gameState.phase == GamePhase.playerBatting &&
         gameState.player.currentChoice == 6) {
       playerHighlightsDialog(context, 'assets/sixer.png');
     }
 
+    // notify player is batting
     if (gameState.phase == GamePhase.playerBatting &&
         gameState.ballsRemaining == 6) {
       playerHighlightsDialog(context, 'assets/batting.png');
     }
 
+    // bots innings started
     if (gameState.phase == GamePhase.botBatting &&
         gameState.ballsRemaining == 6) {
       if (gameState.player.isOut) {
@@ -33,6 +36,7 @@ class GameConditionalOverlay extends StatelessWidget {
         playerHighlightsDialog(context, 'assets/sixer.png');
       }
 
+      // wait for above dialogs to be popped
       final delay =
           gameState.player.isOut || gameState.player.currentChoice == 6
               ? const Duration(milliseconds: 1200)

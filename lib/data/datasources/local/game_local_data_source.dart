@@ -1,5 +1,6 @@
 import 'dart:math';
 
+// breaking into abstract class and then implementing it
 abstract class GameLocalDataSource {
   int getRandomNumber();
 }

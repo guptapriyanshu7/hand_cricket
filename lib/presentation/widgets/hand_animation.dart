@@ -41,6 +41,7 @@ class _HandAnimationState extends State<HandAnimation> {
 
   @override
   Widget build(BuildContext context) {
+    // trigger animation update
     final triggerAnimation = context.select(
       (GameProvider provider) => provider.triggerAnimation,
     );

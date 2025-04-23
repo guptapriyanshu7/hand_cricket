@@ -4,6 +4,7 @@ import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
+// this widget displays a countdown timer with a circular progress indicator and a message below it.
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({super.key});
 

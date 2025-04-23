@@ -4,6 +4,7 @@ import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
+// showing the player and bot's score and the score needed to win
 class GameInfoBar extends StatelessWidget {
   const GameInfoBar({super.key});
 

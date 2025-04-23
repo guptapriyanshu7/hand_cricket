@@ -11,6 +11,7 @@ import 'package:hand_cricket/presentation/providers/game_provider.dart';
 
 final getIt = GetIt.instance;
 
+// service locator for dependency injection
 Future<void> init() async {
   // Providers
   getIt.registerFactory(

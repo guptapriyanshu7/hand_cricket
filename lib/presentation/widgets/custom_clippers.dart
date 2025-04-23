@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// custom clippers for the scoreboard like the slanting and the trapezium shapes
 class LeftSlantClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

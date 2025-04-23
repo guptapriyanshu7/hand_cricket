@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// player bowl circle for the scoreboard
 class PlayerBowlCircle extends StatelessWidget {
   const PlayerBowlCircle({super.key, required this.isBallBowled});
 

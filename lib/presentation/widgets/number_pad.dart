@@ -12,6 +12,7 @@ const mapNumberButtonAssetsToIndex = {
   6: 'assets/six.png',
 };
 
+// 1-6 number pad with scaling animation
 class NumberPad extends StatefulWidget {
   const NumberPad({super.key});
 
@@ -20,6 +21,7 @@ class NumberPad extends StatefulWidget {
 }
 
 class _NumberPadState extends State<NumberPad> {
+  // save which button is pressed in the list
   final List<bool> _isButtonPressedList = List.generate(6, (index) => false);
 
   void _handleTap(int index) {

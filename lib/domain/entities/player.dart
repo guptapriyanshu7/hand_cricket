@@ -1,5 +1,6 @@
 // the essential fields of a player in the game state will be
 // their score, whether they have batted (out or not) and their current choice (random if this is the bot)
+// save a list of their run history
 class Player {
   final String name;
   final int score;

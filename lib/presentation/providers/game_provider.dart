@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:hand_cricket/domain/usecases/get_bot_choice.dart';
 import 'package:hand_cricket/domain/usecases/reset_game.dart';
 
+// the provider to connect the UI with the game logic
 class GameProvider with ChangeNotifier {
   final GetBotChoice getBotChoice;
   final EvaluateOutcome evaluateOutcome;

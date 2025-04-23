@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// player score circle for the scoreboard showing the runs taken by the player at this ball
 class PlayerScoreCircle extends StatelessWidget {
   const PlayerScoreCircle({super.key, required this.runTaken});
 

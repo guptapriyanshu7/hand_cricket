@@ -1,5 +1,6 @@
 import 'package:hand_cricket/domain/entities/game_state.dart';
 
+// higher level model if the game were to be connected to an API
 class GameStateModel extends GameState {
   GameStateModel({
     required super.player,
