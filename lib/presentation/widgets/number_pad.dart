@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -38,12 +39,12 @@ class _NumberPadState extends State<NumberPad> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24).r,
       child: GridView.count(
         crossAxisCount: 3,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        crossAxisSpacing: 40,
+        crossAxisSpacing: 40.w,
         children: List.generate(6, (index) {
           return Center(
             child: GestureDetector(

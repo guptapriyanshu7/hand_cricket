@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +14,8 @@ class CountdownTimer extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 80,
-          height: 80,
+          width: 80.w,
+          height: 80.w,
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -22,13 +23,13 @@ class CountdownTimer extends StatelessWidget {
                 value: remainingTime / GameProvider.timeLimit,
                 backgroundColor: Colors.black,
                 valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
-                strokeWidth: 5, // Stroke width
+                strokeWidth: 5.w,
               ),
               Center(
                 child: Text(
                   remainingTime.toString(),
-                  style: const TextStyle(
-                    fontSize: 40,
+                  style: TextStyle(
+                    fontSize: 40.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -37,11 +38,11 @@ class CountdownTimer extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 10),
-        const Text(
+        SizedBox(height: 10.h),
+        Text(
           'Pick a number before timer runs out',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 18.sp,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

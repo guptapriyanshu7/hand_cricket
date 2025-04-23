@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PlayerBowlCircle extends StatelessWidget {
   const PlayerBowlCircle({super.key, required this.isBallBowled});
@@ -8,8 +9,8 @@ class PlayerBowlCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24,
-      height: 24,
+      width: 24.w,
+      height: 24.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
@@ -20,7 +21,7 @@ class PlayerBowlCircle extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha(30),
-            blurRadius: 2,
+            blurRadius: 2.r,
             offset: Offset(0, 1),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/custom_clippers.dart';
@@ -30,7 +31,7 @@ class ScoreBoard extends StatelessWidget {
     final ballsBowled = 6 - ballsRemaining;
 
     return SizedBox(
-      height: 100,
+      height: 100.h,
       width: double.infinity,
       child: Row(
         children: [
@@ -62,12 +63,13 @@ class ScoreBoard extends StatelessWidget {
                         end: Alignment.topLeft,
                       ),
                     ),
-                    padding: const EdgeInsets.only(
-                      top: 5,
-                      left: 45,
-                      bottom: 5,
-                      right: 35,
-                    ),
+                    padding:
+                        const EdgeInsets.only(
+                          top: 5,
+                          left: 45,
+                          bottom: 5,
+                          right: 35,
+                        ).r,
                     child: GridView.count(
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {
@@ -120,12 +122,13 @@ class ScoreBoard extends StatelessWidget {
                         end: Alignment.topRight,
                       ),
                     ),
-                    padding: const EdgeInsets.only(
-                      top: 5,
-                      left: 35,
-                      bottom: 5,
-                      right: 45,
-                    ),
+                    padding:
+                        const EdgeInsets.only(
+                          top: 5,
+                          left: 35,
+                          bottom: 5,
+                          right: 45,
+                        ).r,
                     child: GridView.count(
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {

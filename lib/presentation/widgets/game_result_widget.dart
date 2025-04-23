@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameResultWidget extends StatelessWidget {
   final String result;
@@ -7,11 +8,11 @@ class GameResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(18).r,
       child: Column(
         children: [
           Image.asset('assets/bails.png'),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           ShaderMask(
             shaderCallback:
                 (bounds) => LinearGradient(
@@ -26,7 +27,7 @@ class GameResultWidget extends StatelessWidget {
               result,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 54,
+                fontSize: 54.sp,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,

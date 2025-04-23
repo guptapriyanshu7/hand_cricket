@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void playerHighlightsDialog(
   BuildContext context,
@@ -19,10 +20,10 @@ void playerHighlightsDialog(
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset(assetImage),
+              Center(child: Image.asset(assetImage)),
               if (supportingText != null)
                 Padding(
-                  padding: EdgeInsets.only(top: 18),
+                  padding: EdgeInsets.only(top: 18).r,
                   child: ShaderMask(
                     shaderCallback:
                         (bounds) => LinearGradient(
@@ -36,7 +37,7 @@ void playerHighlightsDialog(
                     child: Text(
                       supportingText,
                       style: TextStyle(
-                        fontSize: 54,
+                        fontSize: 54.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

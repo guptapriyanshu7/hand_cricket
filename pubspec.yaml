@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.4
   rive: ^0.13.20
   get_it: ^8.0.3
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

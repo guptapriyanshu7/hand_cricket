@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/rive_utils.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
@@ -54,12 +55,12 @@ class _HandAnimationState extends State<HandAnimation> {
       _resetPlayerHandAnimation();
     }
     return Container(
-      width: 350,
-      height: 200,
+      width: 380.w,
+      height: 200.h,
       decoration: BoxDecoration(
         color: Colors.transparent.withAlpha(100),
-        border: Border.all(color: const Color(0xFFD4B052), width: 2),
-        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFFD4B052), width: 2.w),
+        borderRadius: BorderRadius.circular(10).r,
       ),
       child: Row(
         children: [
@@ -110,17 +111,13 @@ class _HandRiveAnimationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: 1.2,
+    return RiveAnimation.asset(
+      'assets/hand_cricket.riv',
       alignment: Alignment.centerRight,
-      child: RiveAnimation.asset(
-        'assets/hand_cricket.riv',
-        alignment: Alignment.centerRight,
-        fit: BoxFit.cover,
-        onInit: (artboard) {
-          onInit(artboard);
-        },
-      ),
+      fit: BoxFit.cover,
+      onInit: (artboard) {
+        onInit(artboard);
+      },
     );
   }
 }

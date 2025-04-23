@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/game_result_widget.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class GameOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameState = context.select((GameProvider provider) => provider.state);
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: 1.sh,
       decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.8)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,22 +23,22 @@ class GameOverview extends StatelessWidget {
               Text(
                 'Clock ran out!',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
           ] else if (gameState.player.score > gameState.bot.score)
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0).r,
               child: Column(
                 children: [
                   Image.asset('assets/you_won.png'),
                   Text(
                     'Your score: ${gameState.player.score}',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,7 +48,7 @@ class GameOverview extends StatelessWidget {
             )
           else
             GameResultWidget(result: 'Scores tied!'),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Center(
             child: TextButton(
               onPressed: () {
@@ -56,14 +57,14 @@ class GameOverview extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20).r,
                 ),
-                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 30),
+                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 30).r,
               ),
               child: Text(
                 'Play Again',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),

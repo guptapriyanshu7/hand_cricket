@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PlayerScoreCircle extends StatelessWidget {
   const PlayerScoreCircle({super.key, required this.runTaken});
@@ -10,15 +11,15 @@ class PlayerScoreCircle extends StatelessWidget {
     final Color circleColor = runTaken != null ? Colors.green : Colors.black;
 
     return Container(
-      width: 24,
-      height: 24,
+      width: 24.w,
+      height: 24.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: circleColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha(30),
-            blurRadius: 2,
+            blurRadius: 2.r,
             offset: Offset(0, 1),
           ),
         ],
@@ -29,7 +30,7 @@ class PlayerScoreCircle extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 12,
+            fontSize: 12.sp,
           ),
         ),
       ),
