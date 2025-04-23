@@ -15,6 +15,7 @@ class GameProvider with ChangeNotifier {
   Timer? _timer;
   static const int timeLimit = 10;
   int _remainingTime = timeLimit;
+  bool _triggerAnimation = false;
 
   GameState _state;
 
@@ -28,6 +29,7 @@ class GameProvider with ChangeNotifier {
 
   GameState get state => _state;
   int get remainingTime => _remainingTime;
+  bool get triggerAnimation => _triggerAnimation;
 
   void _startTimer() {
     _remainingTime = timeLimit;
@@ -85,9 +87,16 @@ class GameProvider with ChangeNotifier {
       ),
     );
 
+    _triggerAnimation = true;
     // evaluate outcome of this state
     _state = evaluateOutcome(_state);
+
     notifyListeners();
+
+    Future.delayed(const Duration(milliseconds: 800), () {
+      _triggerAnimation = false;
+      notifyListeners();
+    });
   }
 
   void reset() {

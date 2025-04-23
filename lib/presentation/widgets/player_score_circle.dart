@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class PlayerScoreCircle extends StatelessWidget {
@@ -30,7 +29,7 @@ class PlayerScoreCircle extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 12,
           ),
         ),
       ),
