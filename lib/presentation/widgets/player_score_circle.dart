@@ -10,27 +10,29 @@ class PlayerScoreCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color circleColor = runTaken != null ? Colors.green : Colors.black;
 
-    return Container(
-      width: 24.w,
-      height: 24.h,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: circleColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(30),
-            blurRadius: 2.r,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Center(
-        child: Text(
-          runTaken?.toString() ?? '',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 12.sp,
+    return Center(
+      child: Container(
+        width: 24.w,
+        height: 24.h,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: circleColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(30),
+              blurRadius: 2.r,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            runTaken?.toString() ?? '',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.sp,
+            ),
           ),
         ),
       ),

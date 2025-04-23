@@ -31,8 +31,7 @@ class ScoreBoard extends StatelessWidget {
     final ballsBowled = 6 - ballsRemaining;
 
     return SizedBox(
-      height: 100.h,
-      width: double.infinity,
+      height: 110.h,
       child: Row(
         children: [
           Expanded(
@@ -65,7 +64,7 @@ class ScoreBoard extends StatelessWidget {
                     ),
                     padding:
                         const EdgeInsets.only(
-                          top: 5,
+                          top: 12,
                           left: 45,
                           bottom: 5,
                           right: 35,
@@ -73,19 +72,13 @@ class ScoreBoard extends StatelessWidget {
                     child: GridView.count(
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {
-                        return Center(
-                          child:
-                              gamePhase == GamePhase.playerBatting
-                                  ? PlayerScoreCircle(
-                                    runTaken: getRunForIndex(
-                                      playerRunHistory,
-                                      index,
-                                    ),
-                                  )
-                                  : PlayerBowlCircle(
-                                    isBallBowled: ballsBowled >= index + 1,
-                                  ),
-                        );
+                        return gamePhase == GamePhase.playerBatting
+                            ? PlayerScoreCircle(
+                              runTaken: getRunForIndex(playerRunHistory, index),
+                            )
+                            : PlayerBowlCircle(
+                              isBallBowled: ballsBowled >= index + 1,
+                            );
                       }),
                     ),
                   ),
@@ -124,7 +117,7 @@ class ScoreBoard extends StatelessWidget {
                     ),
                     padding:
                         const EdgeInsets.only(
-                          top: 5,
+                          top: 12,
                           left: 35,
                           bottom: 5,
                           right: 45,
@@ -132,20 +125,14 @@ class ScoreBoard extends StatelessWidget {
                     child: GridView.count(
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {
-                        return Center(
-                          child:
-                              gamePhase == GamePhase.botBatting ||
-                                      gamePhase == GamePhase.gameOver
-                                  ? PlayerScoreCircle(
-                                    runTaken: getRunForIndex(
-                                      botRunHistory,
-                                      index,
-                                    ),
-                                  )
-                                  : PlayerBowlCircle(
-                                    isBallBowled: ballsBowled >= index + 1,
-                                  ),
-                        );
+                        return gamePhase == GamePhase.botBatting ||
+                                gamePhase == GamePhase.gameOver
+                            ? PlayerScoreCircle(
+                              runTaken: getRunForIndex(botRunHistory, index),
+                            )
+                            : PlayerBowlCircle(
+                              isBallBowled: ballsBowled >= index + 1,
+                            );
                       }),
                     ),
                   ),
