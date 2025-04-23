@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
+import 'package:hand_cricket/presentation/widgets/custom_clippers.dart';
+import 'package:hand_cricket/presentation/widgets/player_score_circle.dart';
 import 'package:provider/provider.dart';
 
 class ScoreBoard extends StatelessWidget {
@@ -10,9 +12,6 @@ class ScoreBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final gamePhase = context.select(
       (GameProvider provider) => provider.state.phase,
-    );
-    final ballsRemaining = context.select(
-      (GameProvider provider) => provider.state.ballsRemaining,
     );
     final playerRunHistory = context.select(
       (GameProvider provider) => provider.state.player.runHistory,
@@ -29,7 +28,7 @@ class ScoreBoard extends StatelessWidget {
             child: Stack(
               children: [
                 ClipPath(
-                  clipper: RightSlantClipper(),
+                  clipper: LeftSlantClipper(),
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -44,7 +43,7 @@ class ScoreBoard extends StatelessWidget {
                   ),
                 ),
                 ClipPath(
-                  clipper: MiddleLeftSlantClipper(),
+                  clipper: LeftTrapeziumClipper(),
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -63,51 +62,14 @@ class ScoreBoard extends StatelessWidget {
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {
                         return Center(
-                          child: Container(
-                            width: 24,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color:
-                                  gamePhase == GamePhase.playerBatting
-                                      ? 6 - ballsRemaining < index + 1
-                                          ? Colors.black
-                                          : Colors.green
-                                      : Colors.black,
-
-                              image:
-                                  gamePhase == GamePhase.botBatting
-                                      ? DecorationImage(
-                                        image: AssetImage('assets/ball.png'),
-                                        fit: BoxFit.cover,
-                                        opacity:
-                                            6 - ballsRemaining < index + 1
-                                                ? 0.5
-                                                : 1.0,
-                                      )
-                                      : null,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.3),
-                                  blurRadius: 2,
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
-                            ),
-                            child:
-                                gamePhase == GamePhase.playerBatting
-                                    ? 6 - ballsRemaining < index + 1
-                                        ? null
-                                        : Center(
-                                          child: Text(
-                                            playerRunHistory[index].toString(),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        )
-                                    : null,
+                          child: PlayerScoreCircle(
+                            isBatting: gamePhase == GamePhase.playerBatting,
+                            isBowling: gamePhase == GamePhase.botBatting,
+                            index: index,
+                            runTaken:
+                                playerRunHistory.length > index
+                                    ? playerRunHistory[index]
+                                    : 0,
                           ),
                         );
                       }),
@@ -122,7 +84,7 @@ class ScoreBoard extends StatelessWidget {
             child: Stack(
               children: [
                 ClipPath(
-                  clipper: LeftSlantClipper(),
+                  clipper: RightSlantClipper(),
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -137,7 +99,7 @@ class ScoreBoard extends StatelessWidget {
                   ),
                 ),
                 ClipPath(
-                  clipper: MiddleRightSlantClipper(),
+                  clipper: RightTrapeziumClipper(),
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -156,50 +118,14 @@ class ScoreBoard extends StatelessWidget {
                       crossAxisCount: 3,
                       children: List.generate(6, (index) {
                         return Center(
-                          child: Container(
-                            width: 24,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color:
-                                  gamePhase == GamePhase.botBatting
-                                      ? 6 - ballsRemaining < index + 1
-                                          ? Colors.black
-                                          : Colors.green
-                                      : Colors.black,
-                              image:
-                                  gamePhase == GamePhase.playerBatting
-                                      ? DecorationImage(
-                                        image: AssetImage('assets/ball.png'),
-                                        fit: BoxFit.cover,
-                                        opacity:
-                                            6 - ballsRemaining < index + 1
-                                                ? 0.5
-                                                : 1.0,
-                                      )
-                                      : null,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.3),
-                                  blurRadius: 2,
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
-                            ),
-                            child:
-                                gamePhase == GamePhase.botBatting
-                                    ? 6 - ballsRemaining < index + 1
-                                        ? null
-                                        : Center(
-                                          child: Text(
-                                            botRunHistory[index].toString(),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        )
-                                    : null,
+                          child: PlayerScoreCircle(
+                            isBatting: gamePhase == GamePhase.botBatting,
+                            isBowling: gamePhase == GamePhase.playerBatting,
+                            index: index,
+                            runTaken:
+                                botRunHistory.length > index
+                                    ? botRunHistory[index]
+                                    : 0,
                           ),
                         );
                       }),
@@ -213,71 +139,4 @@ class ScoreBoard extends StatelessWidget {
       ),
     );
   }
-}
-
-class RightSlantClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, 0);
-    path.lineTo(size.width * 0.82, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class LeftSlantClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(size.width * 0.18, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width * 0.18, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class MiddleLeftSlantClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(size.width * 0.25, 0);
-    path.lineTo(size.width * 0.8, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width * 0.05, size.height);
-    path.lineTo(size.width * 0.25, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class MiddleRightSlantClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(size.width * 0.2, 0);
-    path.lineTo(size.width * 0.75, 0);
-    path.lineTo(size.width * 0.95, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width * 0.2, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
