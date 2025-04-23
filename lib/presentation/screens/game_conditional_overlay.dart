@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/animated_visibility_widget.dart';
+import 'package:hand_cricket/presentation/widgets/game_result_widget.dart';
 import 'package:provider/provider.dart';
 
 class GameConditionalOverlay extends StatelessWidget {
@@ -50,47 +51,19 @@ class GameConditionalOverlay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (gameState.player.score < gameState.bot.score ||
-                  gameState.playerTimedOut)
-                Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    children: [
-                      Image.asset('assets/bails.png'),
-                      const SizedBox(height: 20),
-                      ShaderMask(
-                        shaderCallback:
-                            (bounds) => LinearGradient(
-                              colors: [
-                                const Color.fromARGB(255, 245, 101, 101),
-                                Colors.white,
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ).createShader(bounds),
-                        child: Text(
-                          'You lose!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 54,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      if (gameState.playerTimedOut)
-                        Text(
-                          'Clock ran out!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      const SizedBox(height: 20),
-                    ],
+                  gameState.playerTimedOut) ...[
+                GameResultWidget(result: 'You lose!'),
+                if (gameState.playerTimedOut)
+                  Text(
+                    'Clock ran out!',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
-              else if (gameState.player.score > gameState.bot.score)
+                const SizedBox(height: 20),
+              ] else if (gameState.player.score > gameState.bot.score)
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
@@ -108,37 +81,7 @@ class GameConditionalOverlay extends StatelessWidget {
                   ),
                 )
               else
-                Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    children: [
-                      Image.asset('assets/bails.png'),
-                      const SizedBox(height: 20),
-                      ShaderMask(
-                        shaderCallback:
-                            (bounds) => LinearGradient(
-                              colors: [
-                                const Color.fromARGB(255, 120, 245, 101),
-                                Colors.white,
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ).createShader(bounds),
-                        child: Text(
-                          'Scores tied!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 54,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                ),
-
+                GameResultWidget(result: 'Scores tied!'),
               const SizedBox(height: 20),
               Center(
                 child: TextButton(
@@ -167,7 +110,6 @@ class GameConditionalOverlay extends StatelessWidget {
         ),
       );
     }
-
     return SizedBox.shrink();
   }
 }
