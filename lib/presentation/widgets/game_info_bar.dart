@@ -10,6 +10,9 @@ class GameInfoBar extends StatelessWidget {
     final playerScore = context.select(
       (GameProvider provider) => provider.state.player.score,
     );
+    final botScore = context.select(
+      (GameProvider provider) => provider.state.bot.score,
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
@@ -35,7 +38,7 @@ class GameInfoBar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                'To Win: $playerScore',
+                'To Win: ${playerScore - botScore}',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
