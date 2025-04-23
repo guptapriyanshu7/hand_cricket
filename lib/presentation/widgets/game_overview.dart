@@ -22,11 +22,9 @@ class GameOverview extends StatelessWidget {
             if (gameState.playerTimedOut)
               Text(
                 'Clock ran out!',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
               ),
             SizedBox(height: 20.h),
           ] else if (gameState.player.score > gameState.bot.score)
@@ -37,11 +35,9 @@ class GameOverview extends StatelessWidget {
                   Image.asset('assets/you_won.png'),
                   Text(
                     'Your score: ${gameState.player.score}',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
                   ),
                 ],
               ),

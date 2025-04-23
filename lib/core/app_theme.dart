@@ -9,10 +9,8 @@ class AppTheme {
   static ThemeData get theme => ThemeData.dark().copyWith(
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 18, horizontal: 30),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 30),
         backgroundColor: Colors.orange,
       ),
     ),
