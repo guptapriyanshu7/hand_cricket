@@ -17,6 +17,11 @@ class GameConditionalOverlay extends StatelessWidget {
       playerHighlightsDialog(context, 'assets/sixer.png');
     }
 
+    if (gameState.phase == GamePhase.playerBatting &&
+        gameState.ballsRemaining == 6) {
+      playerHighlightsDialog(context, 'assets/batting.png');
+    }
+
     if (gameState.phase == GamePhase.botBatting &&
         gameState.ballsRemaining == 6) {
       if (gameState.player.isOut) {
