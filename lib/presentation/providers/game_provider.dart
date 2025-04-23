@@ -50,6 +50,7 @@ class GameProvider with ChangeNotifier {
         player: _state.player.copyWith(isOut: true),
         bot: _state.bot,
         phase: GamePhase.gameOver,
+        playerTimedOut: true,
       );
       _timer?.cancel();
       notifyListeners();

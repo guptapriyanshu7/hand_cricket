@@ -10,15 +10,15 @@ class GameConditionalOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameState = context.select((GameProvider provider) => provider.state);
+    if (gameState.phase == GamePhase.botBatting &&
+        gameState.ballsRemaining == 6 &&
+        gameState.player.isOut) {
+      return AnimatedVisibilityWidget(assetImage: 'assets/out.png');
+    }
+
     if (gameState.phase == GamePhase.playerBatting &&
         gameState.player.currentChoice == 6) {
       return AnimatedVisibilityWidget(assetImage: 'assets/sixer.png');
-    }
-
-    if (gameState.phase != GamePhase.gameOver &&
-        gameState.ballsRemaining != 6 &&
-        gameState.player.currentChoice == gameState.bot.currentChoice) {
-      return AnimatedVisibilityWidget(assetImage: 'assets/out.png');
     }
 
     if (gameState.phase == GamePhase.botBatting &&
@@ -45,29 +45,124 @@ class GameConditionalOverlay extends StatelessWidget {
         ),
         child: Container(
           height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7)),
-          child: Center(
-            child: TextButton(
-              onPressed: () {
-                context.read<GameProvider>().reset();
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.orange,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (gameState.player.score < gameState.bot.score ||
+                  gameState.playerTimedOut)
+                Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/bails.png'),
+                      const SizedBox(height: 20),
+                      ShaderMask(
+                        shaderCallback:
+                            (bounds) => LinearGradient(
+                              colors: [
+                                const Color.fromARGB(255, 245, 101, 101),
+                                Colors.white,
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                            ).createShader(bounds),
+                        child: Text(
+                          'You lose!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 54,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      if (gameState.playerTimedOut)
+                        Text(
+                          'Clock ran out!',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                )
+              else if (gameState.player.score > gameState.bot.score)
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/you_won.png'),
+                      Text(
+                        'Your score: ${gameState.player.score}',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/bails.png'),
+                      const SizedBox(height: 20),
+                      ShaderMask(
+                        shaderCallback:
+                            (bounds) => LinearGradient(
+                              colors: [
+                                const Color.fromARGB(255, 120, 245, 101),
+                                Colors.white,
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                            ).createShader(bounds),
+                        child: Text(
+                          'Scores tied!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 54,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-              ),
-              child: Text(
-                'Play Again',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+
+              const SizedBox(height: 20),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    context.read<GameProvider>().reset();
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  ),
+                  child: Text(
+                    'Play Again',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       );
