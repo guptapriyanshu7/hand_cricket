@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hand_cricket/data/models/game_state_model.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/domain/usecases/evaluate_outcome.dart';
 import 'dart:async';
@@ -64,28 +63,16 @@ class GameProvider with ChangeNotifier {
     _startTimer();
 
     // update player choice
-    _state = GameStateModel.fromEntity(_state).copyWith(
-      player: _state.player.copyWith(
-        currentChoice: number,
-        runHistory:
-            _state.phase == GamePhase.playerBatting
-                ? [..._state.player.runHistory, number]
-                : _state.player.runHistory,
-      ),
+    _state = _state.copyWith(
+      player: _state.player.copyWith(currentChoice: number),
     );
 
     // get bot choice
     final botChoice = getBotChoice();
 
     // update bot choice
-    _state = GameStateModel.fromEntity(_state).copyWith(
-      bot: _state.bot.copyWith(
-        currentChoice: botChoice,
-        runHistory:
-            _state.phase == GamePhase.botBatting
-                ? [..._state.bot.runHistory, botChoice]
-                : _state.bot.runHistory,
-      ),
+    _state = _state.copyWith(
+      bot: _state.bot.copyWith(currentChoice: botChoice),
     );
 
     _triggerAnimation = true;

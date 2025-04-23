@@ -23,13 +23,19 @@ class GameRepositoryImpl implements GameRepository {
       } else if (ballsRemaining > 1) {
         // if balls remaining, continue batting qnd add to score
         return currentState.copyWith(
-          player: player.copyWith(score: player.score + player.currentChoice),
+          player: player.copyWith(
+            score: player.score + player.currentChoice,
+            runHistory: [...player.runHistory, player.currentChoice],
+          ),
           ballsRemaining: ballsRemaining - 1,
         );
       } else {
         // if no balls left, innings over, switch to bot batting
         return currentState.copyWith(
-          player: player.copyWith(score: player.score + player.currentChoice),
+          player: player.copyWith(
+            score: player.score + player.currentChoice,
+            runHistory: [...player.runHistory, player.currentChoice],
+          ),
           phase: GamePhase.botBatting,
           ballsRemaining: 6,
         );
@@ -40,24 +46,36 @@ class GameRepositoryImpl implements GameRepository {
         return currentState.copyWith(
           bot: bot.copyWith(isOut: true),
           phase: GamePhase.gameOver,
+          ballsRemaining: ballsRemaining - 1,
         );
       } else if (bot.score + bot.currentChoice > player.score) {
         // bot wins by surpassing player's score
         return currentState.copyWith(
-          bot: bot.copyWith(score: bot.score + bot.currentChoice),
+          bot: bot.copyWith(
+            score: bot.score + bot.currentChoice,
+            runHistory: [...bot.runHistory, bot.currentChoice],
+          ),
           phase: GamePhase.gameOver,
+          ballsRemaining: ballsRemaining - 1,
         );
       } else if (ballsRemaining > 1) {
         // bot continues batting
         return currentState.copyWith(
-          bot: bot.copyWith(score: bot.score + bot.currentChoice),
+          bot: bot.copyWith(
+            score: bot.score + bot.currentChoice,
+            runHistory: [...bot.runHistory, bot.currentChoice],
+          ),
           ballsRemaining: ballsRemaining - 1,
         );
       } else {
         // game over - last ball played
         return currentState.copyWith(
-          bot: bot.copyWith(score: bot.score + bot.currentChoice),
+          bot: bot.copyWith(
+            score: bot.score + bot.currentChoice,
+            runHistory: [...bot.runHistory, bot.currentChoice],
+          ),
           phase: GamePhase.gameOver,
+          ballsRemaining: ballsRemaining - 1,
         );
       }
     }
