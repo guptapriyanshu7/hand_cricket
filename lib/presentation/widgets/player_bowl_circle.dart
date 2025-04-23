@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class PlayerBowlCircle extends StatelessWidget {
@@ -8,8 +7,6 @@ class PlayerBowlCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double opacity = isBallBowled ? 1.0 : 0.5;
-
     return Container(
       width: 24,
       height: 24,
@@ -18,7 +15,7 @@ class PlayerBowlCircle extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage('assets/ball.png'),
           fit: BoxFit.cover,
-          opacity: opacity,
+          opacity: isBallBowled ? 1.0 : 0.5,
         ),
         boxShadow: [
           BoxShadow(
