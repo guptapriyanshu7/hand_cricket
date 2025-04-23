@@ -54,20 +54,11 @@ class GameOverview extends StatelessWidget {
               onPressed: () {
                 context.read<GameProvider>().reset();
               },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.orange,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20).r,
-                ),
-                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 30).r,
-              ),
               child: Text(
                 'Play Again',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/core/rive_utils.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
@@ -58,8 +59,8 @@ class _HandAnimationState extends State<HandAnimation> {
       width: 380.w,
       height: 200.h,
       decoration: BoxDecoration(
-        color: Colors.transparent.withAlpha(100),
-        border: Border.all(color: const Color(0xFFD4B052), width: 2.w),
+        color: Colors.black.withAlpha(100),
+        border: Border.all(color: AppTheme.primaryGold, width: 2.w),
         borderRadius: BorderRadius.circular(10).r,
       ),
       child: Row(

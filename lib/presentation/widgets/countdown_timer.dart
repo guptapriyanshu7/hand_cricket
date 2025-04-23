@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,17 +23,17 @@ class CountdownTimer extends StatelessWidget {
               CircularProgressIndicator(
                 value: remainingTime / GameProvider.timeLimit,
                 backgroundColor: Colors.black,
-                valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppTheme.lightCrimson,
+                ),
                 strokeWidth: 5.w,
               ),
               Center(
                 child: Text(
                   remainingTime.toString(),
-                  style: TextStyle(
-                    fontSize: 40.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontSize: 40.sp),
                 ),
               ),
             ],
@@ -41,11 +42,9 @@ class CountdownTimer extends StatelessWidget {
         SizedBox(height: 10.h),
         Text(
           'Pick a number before timer runs out',
-          style: TextStyle(
-            fontSize: 18.sp,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontSize: 18.sp),
         ),
       ],
     );

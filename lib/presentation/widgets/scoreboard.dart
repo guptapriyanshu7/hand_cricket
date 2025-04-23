@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/custom_clippers.dart';
@@ -40,27 +41,14 @@ class ScoreBoard extends StatelessWidget {
                 ClipPath(
                   clipper: LeftSlantClipper(),
                   child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFD4B052),
-                          Color.fromARGB(255, 235, 204, 124),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
+                    decoration: BoxDecoration(gradient: AppTheme.goldGradient),
                   ),
                 ),
                 ClipPath(
                   clipper: LeftTrapeziumClipper(),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.blueGrey, Colors.blueGrey[900]!],
-                        begin: Alignment.bottomRight,
-                        end: Alignment.topLeft,
-                      ),
+                      gradient: AppTheme.blueGreyGradientLtr,
                     ),
                     padding:
                         const EdgeInsets.only(
@@ -93,27 +81,14 @@ class ScoreBoard extends StatelessWidget {
                 ClipPath(
                   clipper: RightSlantClipper(),
                   child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFC42C31),
-                          Color.fromARGB(255, 235, 62, 67),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
+                    decoration: BoxDecoration(gradient: AppTheme.redGradient),
                   ),
                 ),
                 ClipPath(
                   clipper: RightTrapeziumClipper(),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.blueGrey, Colors.blueGrey[900]!],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                      ),
+                      gradient: AppTheme.blueGreyGradientRtl,
                     ),
                     padding:
                         const EdgeInsets.only(

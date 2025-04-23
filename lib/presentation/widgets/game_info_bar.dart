@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,15 +22,14 @@ class GameInfoBar extends StatelessWidget {
         children: [
           Text(
             'You: $playerScore',
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontSize: 18.sp),
           ),
           Container(
             padding: const EdgeInsets.all(8.0).r,
             decoration: BoxDecoration(
-              gradient: RadialGradient(
-                radius: 1.5.r,
-                colors: [Color.fromARGB(255, 235, 204, 124), Color(0xFFD4B052)],
-              ),
+              gradient: AppTheme.goldRadialGradient,
               borderRadius:
                   BorderRadius.only(
                     bottomLeft: Radius.circular(16),
@@ -40,13 +40,17 @@ class GameInfoBar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0).r,
               child: Text(
                 'To Win: ${playerScore - botScore < 0 ? 0 : playerScore - botScore}',
-                style: TextStyle(color: Colors.black, fontSize: 16.sp),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.black),
               ),
             ),
           ),
           Text(
             'Bot: $botScore',
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontSize: 18.sp),
           ),
         ],
       ),

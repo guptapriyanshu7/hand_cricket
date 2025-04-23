@@ -25,16 +25,7 @@ class PlayerScoreCircle extends StatelessWidget {
             ),
           ],
         ),
-        child: Center(
-          child: Text(
-            runTaken?.toString() ?? '',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.sp,
-            ),
-          ),
-        ),
+        child: Center(child: Text(runTaken?.toString() ?? '')),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 
 void playerHighlightsDialog(
   BuildContext context,
@@ -26,20 +27,12 @@ void playerHighlightsDialog(
                   padding: EdgeInsets.only(top: 18).r,
                   child: ShaderMask(
                     shaderCallback:
-                        (bounds) => LinearGradient(
-                          colors: [
-                            const Color.fromARGB(255, 70, 192, 252),
-                            Colors.white,
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ).createShader(bounds),
+                        (bounds) => AppTheme.blueGradient.createShader(bounds),
                     child: Text(
                       supportingText,
-                      style: TextStyle(
-                        fontSize: 54.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(fontSize: 54.sp),
                     ),
                   ),
                 ),

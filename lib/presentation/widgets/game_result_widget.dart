@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 
 class GameResultWidget extends StatelessWidget {
   final String result;
@@ -15,22 +16,12 @@ class GameResultWidget extends StatelessWidget {
           SizedBox(height: 20.h),
           ShaderMask(
             shaderCallback:
-                (bounds) => LinearGradient(
-                  colors: [
-                    const Color.fromARGB(255, 245, 101, 101),
-                    Colors.white,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ).createShader(bounds),
+                (bounds) => AppTheme.lightRedGradient.createShader(bounds),
             child: Text(
               result,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 54.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontSize: 54.sp),
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/screens/game_screen.dart';
 import 'package:hand_cricket/core/get_it.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Hand Cricket',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.dark(),
+          theme: AppTheme.theme,
           home: const GameScreen(),
         ),
       ),
