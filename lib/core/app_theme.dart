@@ -7,7 +7,9 @@ class AppTheme {
   static const Color crimsonRed = Color(0xFFC42C31);
   static const Color lightCrimson = Color(0xFFEB3E43);
 
-  static ThemeData get theme => ThemeData.dark().copyWith(
+  static ThemeData get theme => ThemeData(
+    brightness: Brightness.dark,
+    fontFamily: 'Poppins',
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

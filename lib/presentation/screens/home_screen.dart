@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                             'Tap the buttons\nto score Runs',
                             style: Theme.of(
                               context,
-                            ).textTheme.bodyMedium!.copyWith(fontSize: 20.sp),
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 18.sp),
                           ),
                         ),
                         SizedBox(width: 10.w),
@@ -113,13 +113,13 @@ class HomeScreen extends StatelessWidget {
                                         context,
                                       ).textTheme.bodyMedium!.copyWith(
                                         color: const Color(0xFFED7A72),
-                                        fontSize: 20.sp,
+                                        fontSize: 18.sp,
                                       ),
                                     ),
                                   ],
                                 ),
                                 style: Theme.of(context).textTheme.bodyMedium!
-                                    .copyWith(fontSize: 20.sp),
+                                    .copyWith(fontSize: 18.sp),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 10.h),
@@ -130,13 +130,13 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 15.w),
+                        SizedBox(width: 4.w),
                         Container(
                           width: 2.w,
                           height: 100.h,
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
-                        SizedBox(width: 15.w),
+                        SizedBox(width: 16.w),
                         Expanded(
                           child: Column(
                             children: [
@@ -150,13 +150,13 @@ class HomeScreen extends StatelessWidget {
                                         context,
                                       ).textTheme.bodyMedium!.copyWith(
                                         color: Colors.green,
-                                        fontSize: 20.sp,
+                                        fontSize: 18.sp,
                                       ),
                                     ),
                                   ],
                                 ),
                                 style: Theme.of(context).textTheme.bodyMedium!
-                                    .copyWith(fontSize: 20.sp),
+                                    .copyWith(fontSize: 18.sp),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 10.h),
@@ -183,15 +183,16 @@ class HomeScreen extends StatelessWidget {
                             'Be the highest scorer\nand win the game',
                             style: Theme.of(
                               context,
-                            ).textTheme.bodyMedium!.copyWith(fontSize: 20.sp),
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 18.sp),
                           ),
                         ),
                         SizedBox(width: 10.w),
                         SizedBox(
-                          width: 120.w,
-                          height: 100.h,
+                          width: 90.w,
+                          height: 95.h,
                           child: Image.asset('assets/you_won.png'),
                         ),
+                        SizedBox(width: 10.w),
                       ],
                     ),
                   ),
