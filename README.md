@@ -2,6 +2,8 @@
 
 Hand Cricket is a simple and fun game where you play against a bot. You choose a number between 1 and 6, and so does the bot. If the numbers match, you're out! Otherwise, your number is added to your score. The goal is to score more runs than the bot.
 
+https://github.com/user-attachments/assets/a0f3190d-baa9-4599-95db-29c766f7e7e5
+
 ## Features
 
 - Interactive and user-friendly interface.
