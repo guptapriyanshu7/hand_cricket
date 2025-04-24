@@ -54,6 +54,7 @@ void gameOverviewDialog(
             TextButton(
               onPressed: () {
                 context.read<GameProvider>().reset();
+                Navigator.of(context).pop();
               },
               child: Text(
                 'Play Again',
