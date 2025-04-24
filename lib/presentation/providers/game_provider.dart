@@ -12,6 +12,10 @@ enum OverlayEvent {
   playerBattingStart,
   playerOut,
   playerDefend,
+  gameWon,
+  gameLost,
+  gameDraw,
+  timeOut,
 }
 
 class GameProvider with ChangeNotifier {
@@ -72,6 +76,7 @@ class GameProvider with ChangeNotifier {
         phase: GamePhase.gameOver,
         playerTimedOut: true,
       );
+      _overlayEvent = OverlayEvent.timeOut;
       _timer?.cancel();
       notifyListeners();
     }
@@ -108,6 +113,22 @@ class GameProvider with ChangeNotifier {
   }
 
   void _handleOverlayEvents(int number) {
+    if (_state.phase == GamePhase.gameOver &&
+        _state.player.score > _state.bot.score) {
+      _overlayEvent = OverlayEvent.gameWon;
+      _overlayData = _state.player.score.toString();
+      return;
+    }
+    if (_state.phase == GamePhase.gameOver &&
+        _state.player.score < _state.bot.score) {
+      _overlayEvent = OverlayEvent.gameLost;
+      return;
+    }
+    if (_state.phase == GamePhase.gameOver &&
+        _state.player.score == _state.bot.score) {
+      _overlayEvent = OverlayEvent.gameDraw;
+      return;
+    }
     if (_shouldShowPlayerSix(number)) {
       _overlayEvent = OverlayEvent.playerSix;
       return;

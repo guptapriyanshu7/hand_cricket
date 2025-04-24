@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hand_cricket/domain/entities/game_state.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/game_overview.dart';
 import 'package:hand_cricket/presentation/widgets/player_highlights_dialog.dart';
@@ -41,6 +40,12 @@ class _GameConditionalOverlayState extends State<GameConditionalOverlay> {
             supportingText: data,
           );
           break;
+        case OverlayEvent.gameWon:
+        case OverlayEvent.gameLost:
+        case OverlayEvent.gameDraw:
+        case OverlayEvent.timeOut:
+          gameOverviewDialog(context, event, data);
+          break;
         case OverlayEvent.none:
           break;
       }
@@ -57,11 +62,6 @@ class _GameConditionalOverlayState extends State<GameConditionalOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    final gameState = context.select((GameProvider provider) => provider.state);
-
-    if (gameState.phase == GamePhase.gameOver) {
-      return GameOverview();
-    }
     return SizedBox.shrink();
   }
 }
