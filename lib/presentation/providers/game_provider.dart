@@ -6,7 +6,8 @@ import 'dart:async';
 import 'package:hand_cricket/domain/usecases/get_bot_choice.dart';
 import 'package:hand_cricket/domain/usecases/reset_game.dart';
 
-// the provider to connect the UI with the game logic
+enum OverlayEvent { none, playerSix, playerBattingStart, playerOut, botDefend }
+
 class GameProvider with ChangeNotifier {
   final GetBotChoice getBotChoice;
   final EvaluateOutcome evaluateOutcome;
@@ -18,6 +19,9 @@ class GameProvider with ChangeNotifier {
 
   GameState _state;
 
+  OverlayEvent _overlayEvent = OverlayEvent.none;
+  String? _overlayData;
+
   GameProvider({
     required this.getBotChoice,
     required this.evaluateOutcome,
@@ -28,6 +32,19 @@ class GameProvider with ChangeNotifier {
 
   GameState get state => _state;
   int get remainingTime => _remainingTime;
+
+  // exposes the current overlay event, then resets it when read
+  OverlayEvent get overlayEvent {
+    final e = _overlayEvent;
+    _overlayEvent = OverlayEvent.none;
+    return e;
+  }
+
+  String? get overlayData {
+    final d = _overlayData;
+    _overlayData = null;
+    return d;
+  }
 
   void _startTimer() {
     _remainingTime = timeLimit;
@@ -61,7 +78,6 @@ class GameProvider with ChangeNotifier {
     // Reset timer on valid choice
     _startTimer();
 
-    // update player choice
     _state = _state.copyWith(
       player: _state.player.copyWith(currentChoice: number),
     );
@@ -77,6 +93,8 @@ class GameProvider with ChangeNotifier {
     // evaluate outcome of this state
     _state = evaluateOutcome(_state);
 
+    _handleOverlayEvents(number);
+
     if (_state.phase == GamePhase.gameOver) {
       _timer?.cancel();
     }
@@ -84,8 +102,54 @@ class GameProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void _handleOverlayEvents(int number) {
+    if (_shouldShowPlayerSix(number)) {
+      _overlayEvent = OverlayEvent.playerSix;
+      return;
+    }
+    if (_shouldShowBattingStart()) {
+      _overlayEvent = OverlayEvent.playerBattingStart;
+      return;
+    }
+    if (_isBotInningsStart()) {
+      _handleBotBattingEvents(number);
+    }
+  }
+
+  bool _shouldShowPlayerSix(int number) {
+    return _state.phase == GamePhase.playerBatting && number == 6;
+  }
+
+  bool _shouldShowBattingStart() {
+    return _state.phase == GamePhase.playerBatting &&
+        _state.ballsRemaining == 6;
+  }
+
+  bool _isBotInningsStart() {
+    return _state.phase == GamePhase.botBatting && _state.ballsRemaining == 6;
+  }
+
+  void _handleBotBattingEvents(int number) {
+    if (_state.player.isOut) {
+      _overlayEvent = OverlayEvent.playerOut;
+    } else if (number == 6) {
+      _overlayEvent = OverlayEvent.playerSix;
+    }
+    final delay =
+        _state.player.isOut || number == 6
+            ? const Duration(milliseconds: 1200)
+            : Duration.zero;
+    Future.delayed(delay, () {
+      _overlayEvent = OverlayEvent.botDefend;
+      _overlayData = _state.player.score.toString();
+      notifyListeners();
+    });
+  }
+
   void reset() {
     _state = resetGame();
+    _overlayEvent = OverlayEvent.none;
+    _overlayData = null;
     _startTimer();
     notifyListeners();
   }

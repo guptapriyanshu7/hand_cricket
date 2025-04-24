@@ -5,52 +5,59 @@ import 'package:hand_cricket/presentation/widgets/game_overview.dart';
 import 'package:hand_cricket/presentation/widgets/player_highlights_dialog.dart';
 import 'package:provider/provider.dart';
 
-class GameConditionalOverlay extends StatelessWidget {
+class GameConditionalOverlay extends StatefulWidget {
   const GameConditionalOverlay({super.key});
+
+  @override
+  State<GameConditionalOverlay> createState() => _GameConditionalOverlayState();
+}
+
+class _GameConditionalOverlayState extends State<GameConditionalOverlay> {
+  late GameProvider _gameProvider;
+  late VoidCallback _listener;
+
+  @override
+  void initState() {
+    super.initState();
+    _gameProvider = context.read<GameProvider>();
+
+    _listener = () {
+      final event = _gameProvider.overlayEvent;
+      final data = _gameProvider.overlayData;
+      switch (event) {
+        case OverlayEvent.playerSix:
+          playerHighlightsDialog(context, 'assets/sixer.png');
+          break;
+        case OverlayEvent.playerBattingStart:
+          playerHighlightsDialog(context, 'assets/batting.png');
+          break;
+        case OverlayEvent.playerOut:
+          playerHighlightsDialog(context, 'assets/out.png');
+          break;
+        case OverlayEvent.botDefend:
+          playerHighlightsDialog(
+            context,
+            'assets/game_defend.webp',
+            supportingText: data,
+          );
+          break;
+        case OverlayEvent.none:
+          break;
+      }
+    };
+
+    _gameProvider.addListener(_listener);
+  }
+
+  @override
+  void dispose() {
+    _gameProvider.removeListener(_listener);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final gameState = context.select((GameProvider provider) => provider.state);
-
-    // if player batting and hits a six
-    if (gameState.phase == GamePhase.playerBatting &&
-        gameState.player.currentChoice == 6) {
-      playerHighlightsDialog(context, 'assets/sixer.png');
-    }
-
-    // notify player is batting
-    if (gameState.phase == GamePhase.playerBatting &&
-        gameState.ballsRemaining == 6) {
-      playerHighlightsDialog(context, 'assets/batting.png');
-    }
-
-    // bots innings started
-    if (gameState.phase == GamePhase.botBatting &&
-        gameState.ballsRemaining == 6) {
-      if (gameState.player.isOut) {
-        playerHighlightsDialog(context, 'assets/out.png');
-      }
-
-      // if last ball player played was a six
-      if (gameState.player.currentChoice == 6 && !gameState.player.isOut) {
-        playerHighlightsDialog(context, 'assets/sixer.png');
-      }
-
-      // wait for above dialogs to be popped
-      final delay =
-          gameState.player.isOut || gameState.player.currentChoice == 6
-              ? const Duration(milliseconds: 1200)
-              : Duration.zero;
-
-      Future.delayed(delay, () {
-        if (!context.mounted) return;
-        playerHighlightsDialog(
-          context,
-          'assets/game_defend.webp',
-          supportingText: gameState.player.score.toString(),
-        );
-      });
-    }
 
     if (gameState.phase == GamePhase.gameOver) {
       return GameOverview();
