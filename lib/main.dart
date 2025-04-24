@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/app_theme.dart';
+import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/core/get_it.dart';
 import 'package:hand_cricket/presentation/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await init();
@@ -18,11 +20,14 @@ class MyApp extends StatelessWidget {
       designSize: Size(480, 940),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        title: 'Hand Cricket',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.theme,
-        home: const HomeScreen(),
+      child: ChangeNotifierProvider(
+        create: (_) => getIt<GameProvider>(),
+        child: MaterialApp(
+          title: 'Hand Cricket',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.theme,
+          home: const HomeScreen(),
+        ),
       ),
     );
   }

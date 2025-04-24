@@ -174,11 +174,15 @@ class GameProvider with ChangeNotifier {
     });
   }
 
-  void reset() {
+  void start() {
     _state = resetGame();
     _overlayEvent = OverlayEvent.none;
     _overlayData = null;
     _startTimer();
+  }
+
+  void reset() {
+    start();
     notifyListeners();
   }
 

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/app_theme.dart';
-import 'package:hand_cricket/core/get_it.dart';
-import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/screens/game_screen.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -169,11 +166,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (context) => ChangeNotifierProvider(
-                                create: (_) => getIt<GameProvider>(),
-                                child: const GameScreen(),
-                              ),
+                          builder: (context) => const GameScreen(),
                         ),
                       );
                     },

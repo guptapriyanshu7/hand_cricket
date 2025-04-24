@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     _gameProvider = context.read<GameProvider>();
-
+    _gameProvider.start();
     _listener = () {
       final event = _gameProvider.overlayEvent;
       final playerScore = _gameProvider.overlayData;
