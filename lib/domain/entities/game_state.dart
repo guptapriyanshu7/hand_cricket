@@ -15,14 +15,12 @@ class GameState {
   final Player bot;
   final GamePhase phase;
   final int ballsRemaining;
-  final bool playerTimedOut;
 
   const GameState({
     required this.player,
     required this.bot,
     required this.phase,
     this.ballsRemaining = 6,
-    this.playerTimedOut = false,
   });
 
   // copyWith method to create a new instance of GameState with updated values
@@ -31,14 +29,12 @@ class GameState {
     Player? bot,
     GamePhase? phase,
     int? ballsRemaining,
-    bool? playerTimedOut,
   }) {
     return GameState(
       player: player ?? this.player,
       bot: bot ?? this.bot,
       phase: phase ?? this.phase,
       ballsRemaining: ballsRemaining ?? this.ballsRemaining,
-      playerTimedOut: playerTimedOut ?? this.playerTimedOut,
     );
   }
 }

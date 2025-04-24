@@ -74,7 +74,6 @@ class GameProvider with ChangeNotifier {
       _state = _state.copyWith(
         player: _state.player.copyWith(isOut: true),
         phase: GamePhase.gameOver,
-        playerTimedOut: true,
       );
       _overlayEvent = OverlayEvent.timeOut;
       _timer?.cancel();

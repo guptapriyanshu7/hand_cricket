@@ -7,7 +7,6 @@ class GameStateModel extends GameState {
     required super.bot,
     required super.phase,
     super.ballsRemaining,
-    super.playerTimedOut,
   });
 
   factory GameStateModel.fromEntity(GameState entity) {
@@ -16,7 +15,6 @@ class GameStateModel extends GameState {
       bot: entity.bot,
       phase: entity.phase,
       ballsRemaining: entity.ballsRemaining,
-      playerTimedOut: entity.playerTimedOut,
     );
   }
 }
