@@ -6,7 +6,13 @@ import 'dart:async';
 import 'package:hand_cricket/domain/usecases/get_bot_choice.dart';
 import 'package:hand_cricket/domain/usecases/reset_game.dart';
 
-enum OverlayEvent { none, playerSix, playerBattingStart, playerOut, playerDefend }
+enum OverlayEvent {
+  none,
+  playerSix,
+  playerBattingStart,
+  playerOut,
+  playerDefend,
+}
 
 class GameProvider with ChangeNotifier {
   final GetBotChoice getBotChoice;
@@ -61,9 +67,8 @@ class GameProvider with ChangeNotifier {
 
   void _handleTimeout() {
     if (_state.phase != GamePhase.gameOver) {
-      _state = GameState(
+      _state = _state.copyWith(
         player: _state.player.copyWith(isOut: true),
-        bot: _state.bot,
         phase: GamePhase.gameOver,
         playerTimedOut: true,
       );
