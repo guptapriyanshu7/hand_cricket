@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_cricket/core/app_theme.dart';
 import 'package:hand_cricket/core/get_it.dart';
 import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/screens/game_screen.dart';
+import 'package:hand_cricket/presentation/widgets/home_screen_number_button.dart';
+import 'package:hand_cricket/presentation/widgets/instruction_card.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,20 +27,48 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: SizedBox.expand(
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(20.r),
               child: Column(
                 children: [
                   SizedBox(height: 80.h),
-                  ShaderMask(
-                    shaderCallback:
-                        (bounds) =>
-                            AppTheme.goldRadialGradient.createShader(bounds),
-                    child: Text(
-                      'How to play',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(fontSize: 54.sp),
-                    ),
+                  Stack(
+                    children: [
+                      Row(
+                        children: [
+                          Opacity(
+                            opacity: 0.3,
+                            child: Transform(
+                              transform: Matrix4.rotationY(pi),
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                'assets/three_run_finger.png',
+                                scale: 4.5,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Opacity(
+                            opacity: 0.3,
+                            child: Image.asset(
+                              'assets/one_run_finger.png',
+                              scale: 4.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Center(
+                        child: ShaderMask(
+                          shaderCallback:
+                              (bounds) => AppTheme.goldRadialGradient
+                                  .createShader(bounds),
+                          child: Text(
+                            'How to play',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(fontSize: 54.sp),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 40.h),
 
@@ -53,11 +85,11 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10.w),
-                        _buildNumberButton(context, '3', highlighted: true),
+                        HomeScreenNumberButton(3, isHighlighted: true),
                         SizedBox(width: 5.w),
-                        _buildNumberButton(context, '2'),
+                        HomeScreenNumberButton(2),
                         SizedBox(width: 5.w),
-                        _buildNumberButton(context, '1'),
+                        HomeScreenNumberButton(1),
                       ],
                     ),
                   ),
@@ -104,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                           height: 100.h,
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
-                        SizedBox(width: 15.w), // Spacer between columns
+                        SizedBox(width: 15.w),
                         Expanded(
                           child: Column(
                             children: [
@@ -202,78 +234,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildNumberButton(
-    BuildContext context,
-    String text, {
-    bool highlighted = false,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors:
-              highlighted
-                  ? [AppTheme.secondaryGold, AppTheme.primaryGold]
-                  : [Colors.white, const Color(0xFF98D0EC)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        text,
-        style: Theme.of(
-          context,
-        ).textTheme.bodyMedium!.copyWith(fontSize: 18.sp, color: Colors.black),
-      ),
-    );
-  }
-}
-
-class InstructionCard extends StatelessWidget {
-  const InstructionCard({
-    super.key,
-    required this.number,
-    required this.content,
-    this.giveBottomPadding = true,
-  });
-
-  final String number;
-  final Widget content;
-  final bool giveBottomPadding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(18, 18, 18, giveBottomPadding ? 18 : 0).r,
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 15.r,
-            backgroundColor: Colors.red,
-            child: ShaderMask(
-              shaderCallback:
-                  (bounds) => AppTheme.goldRadialGradient.createShader(bounds),
-              child: Text(
-                number,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(fontSize: 20.sp),
-              ),
-            ),
-          ),
-          SizedBox(width: 15.w),
-          Expanded(child: content),
-        ],
       ),
     );
   }
