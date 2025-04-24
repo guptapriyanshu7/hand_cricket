@@ -72,7 +72,8 @@ class GameProvider with ChangeNotifier {
   void _handleTimeout() {
     if (_state.phase != GamePhase.gameOver) {
       _state = _state.copyWith(
-        player: _state.player.copyWith(isOut: true),
+        player: _state.player.copyWith(isOut: true, currentChoice: 0),
+        bot: _state.bot.copyWith(currentChoice: 0),
         phase: GamePhase.gameOver,
       );
       _overlayEvent = OverlayEvent.timeOut;
