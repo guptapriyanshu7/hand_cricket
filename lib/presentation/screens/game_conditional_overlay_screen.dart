@@ -34,7 +34,7 @@ class _GameConditionalOverlayState extends State<GameConditionalOverlay> {
         case OverlayEvent.playerOut:
           playerHighlightsDialog(context, 'assets/out.png');
           break;
-        case OverlayEvent.botDefend:
+        case OverlayEvent.playerDefend:
           playerHighlightsDialog(
             context,
             'assets/game_defend.webp',

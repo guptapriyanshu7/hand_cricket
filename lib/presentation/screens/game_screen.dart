@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hand_cricket/presentation/screens/game_conditional_overlay.dart';
+import 'package:hand_cricket/presentation/screens/game_conditional_overlay_screen.dart';
 import 'package:hand_cricket/presentation/widgets/countdown_timer.dart';
 import 'package:hand_cricket/presentation/widgets/game_info_bar.dart';
 import 'package:hand_cricket/presentation/widgets/hand_animation.dart';

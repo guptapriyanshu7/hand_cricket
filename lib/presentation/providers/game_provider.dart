@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:hand_cricket/domain/usecases/get_bot_choice.dart';
 import 'package:hand_cricket/domain/usecases/reset_game.dart';
 
-enum OverlayEvent { none, playerSix, playerBattingStart, playerOut, botDefend }
+enum OverlayEvent { none, playerSix, playerBattingStart, playerOut, playerDefend }
 
 class GameProvider with ChangeNotifier {
   final GetBotChoice getBotChoice;
@@ -140,7 +140,7 @@ class GameProvider with ChangeNotifier {
             ? const Duration(milliseconds: 1200)
             : Duration.zero;
     Future.delayed(delay, () {
-      _overlayEvent = OverlayEvent.botDefend;
+      _overlayEvent = OverlayEvent.playerDefend;
       _overlayData = _state.player.score.toString();
       notifyListeners();
     });
