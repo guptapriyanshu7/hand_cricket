@@ -34,7 +34,7 @@ class ScoreBoard extends StatelessWidget {
     final ballsBowled = 6 - ballsRemaining;
 
     return SizedBox(
-      height: 110.h,
+      height: 0.12.sh,
       child: Row(
         children: [
           Expanded(

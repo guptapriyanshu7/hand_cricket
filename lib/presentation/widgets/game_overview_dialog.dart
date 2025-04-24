@@ -42,6 +42,7 @@ void gameOverviewDialog(
                 ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
               ),
             ),
+            SizedBox(height: 30.h),
           ],
         ),
       );
