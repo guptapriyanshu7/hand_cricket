@@ -12,7 +12,7 @@ void gameOverviewDialog(
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (context) {
+    builder: (_) {
       return Dialog(
         backgroundColor: Colors.transparent.withValues(alpha: 0.8),
         insetPadding: EdgeInsets.all(0),
