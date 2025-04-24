@@ -11,6 +11,7 @@ import 'package:hand_cricket/presentation/providers/game_provider.dart';
 import 'package:hand_cricket/presentation/widgets/countdown_timer.dart';
 import 'package:hand_cricket/presentation/widgets/game_info_bar.dart';
 import 'package:hand_cricket/presentation/widgets/game_overview_dialog.dart';
+import 'package:hand_cricket/presentation/widgets/game_result_widget.dart';
 import 'package:hand_cricket/presentation/widgets/hand_animation.dart';
 import 'package:hand_cricket/presentation/widgets/number_pad.dart';
 import 'package:hand_cricket/presentation/widgets/player_highlights_dialog.dart';
@@ -27,14 +28,15 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late GameProvider _gameProvider;
   late VoidCallback _listener;
-    @override
+
+  @override
   void initState() {
     super.initState();
     _gameProvider = context.read<GameProvider>();
 
     _listener = () {
       final event = _gameProvider.overlayEvent;
-      final data = _gameProvider.overlayData;
+      final playerScore = _gameProvider.overlayData;
       switch (event) {
         case OverlayEvent.playerSix:
           playerHighlightsDialog(context, 'assets/sixer.png');
@@ -49,15 +51,36 @@ class _GameScreenState extends State<GameScreen> {
           playerHighlightsDialog(
             context,
             'assets/game_defend.webp',
-            supportingText: data,
+            supportingText: playerScore,
           );
           break;
         case OverlayEvent.gameWon:
-        case OverlayEvent.gameLost:
-        case OverlayEvent.gameDraw:
-        case OverlayEvent.timeOut:
-          gameOverviewDialog(context, event, data);
+          gameOverviewDialog(
+            context,
+            resultWidget: Padding(
+              padding: const EdgeInsets.all(18).r,
+              child: Image.asset('assets/you_won.png'),
+            ),
+            supportingText: 'Your score: $playerScore',
+          );
           break;
+        case OverlayEvent.gameLost:
+          gameOverviewDialog(
+            context,
+            resultWidget: GameResultWidget(result: 'You lose!'),
+          );
+        case OverlayEvent.gameDraw:
+          gameOverviewDialog(
+            context,
+            resultWidget: GameResultWidget(result: 'Scores tied!'),
+          );
+        case OverlayEvent.timeOut:
+          gameOverviewDialog(
+            context,
+            resultWidget: GameResultWidget(result: 'You lose!'),
+            supportingText: 'Clock ran out!',
+          );
+
         case OverlayEvent.none:
           break;
       }
