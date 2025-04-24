@@ -32,6 +32,10 @@ class _HandAnimationState extends State<HandAnimation> {
   void _triggerPlayerHandAnimation(int playerChoice, int botChoice) {
     playerHandSmiNumber?.value = playerChoice * 1.0;
     botHandSmiNumber?.value = botChoice * 1.0;
+
+    Future.delayed(const Duration(milliseconds: 800), () {
+      _resetPlayerHandAnimation();
+    });
   }
 
   void _resetPlayerHandAnimation() {
@@ -41,21 +45,12 @@ class _HandAnimationState extends State<HandAnimation> {
 
   @override
   Widget build(BuildContext context) {
-    // trigger animation update
-    final triggerAnimation = context.select(
-      (GameProvider provider) => provider.triggerAnimation,
+    final player = context.select(
+      (GameProvider provider) => provider.state.player,
     );
-    final playerChoice = context.select(
-      (GameProvider provider) => provider.state.player.currentChoice,
-    );
-    final botChoice = context.select(
-      (GameProvider provider) => provider.state.bot.currentChoice,
-    );
-    if (triggerAnimation) {
-      _triggerPlayerHandAnimation(playerChoice, botChoice);
-    } else {
-      _resetPlayerHandAnimation();
-    }
+    final bot = context.select((GameProvider provider) => provider.state.bot);
+    _triggerPlayerHandAnimation(player.currentChoice, bot.currentChoice);
+
     return Container(
       width: 380.w,
       height: 200.h,
