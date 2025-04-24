@@ -18,32 +18,37 @@ void gameOverviewDialog(
         insetPadding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         elevation: 0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            resultWidget,
-            if (supportingText != null)
-              Text(
-                supportingText,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
-              ),
-            SizedBox(height: 30.h),
-            TextButton(
-              onPressed: () {
-                context.read<GameProvider>().reset();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Play Again',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
-              ),
+        child: SizedBox.expand(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 0.2.sh),
+                resultWidget,
+                if (supportingText != null)
+                  Text(
+                    supportingText,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
+                  ),
+                SizedBox(height: 30.h),
+                TextButton(
+                  onPressed: () {
+                    context.read<GameProvider>().reset();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Play Again',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(fontSize: 24.sp),
+                  ),
+                ),
+                SizedBox(height: 30.h),
+              ],
             ),
-            SizedBox(height: 30.h),
-          ],
+          ),
         ),
       );
     },
