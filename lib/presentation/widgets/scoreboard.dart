@@ -54,13 +54,15 @@ class ScoreBoard extends StatelessWidget {
                     ),
                     padding:
                         const EdgeInsets.only(
-                          top: 12,
-                          left: 45,
-                          bottom: 5,
-                          right: 35,
+                          top: 30,
+                          left: 70,
+                          bottom: 10,
+                          right: 55,
                         ).r,
                     child: GridView.count(
                       crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 8,
                       children: List.generate(6, (index) {
                         return gamePhase == GamePhase.playerBatting
                             ? PlayerScoreCircle(
@@ -94,13 +96,15 @@ class ScoreBoard extends StatelessWidget {
                     ),
                     padding:
                         const EdgeInsets.only(
-                          top: 12,
-                          left: 35,
-                          bottom: 5,
-                          right: 45,
+                          top: 30,
+                          left: 55,
+                          bottom: 10,
+                          right: 70,
                         ).r,
                     child: GridView.count(
                       crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 8,
                       children: List.generate(6, (index) {
                         return gamePhase == GamePhase.botBatting ||
                                 gamePhase == GamePhase.gameOver
