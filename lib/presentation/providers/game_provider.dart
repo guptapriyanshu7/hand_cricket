@@ -112,20 +112,8 @@ class GameProvider with ChangeNotifier {
   }
 
   void _handleOverlayEvents(int number) {
-    if (_state.phase == GamePhase.gameOver &&
-        _state.player.score > _state.bot.score) {
-      _overlayEvent = OverlayEvent.gameWon;
-      _overlayData = _state.player.score.toString();
-      return;
-    }
-    if (_state.phase == GamePhase.gameOver &&
-        _state.player.score < _state.bot.score) {
-      _overlayEvent = OverlayEvent.gameLost;
-      return;
-    }
-    if (_state.phase == GamePhase.gameOver &&
-        _state.player.score == _state.bot.score) {
-      _overlayEvent = OverlayEvent.gameDraw;
+    if (_state.phase == GamePhase.gameOver) {
+      _handleGameOverEvents();
       return;
     }
     if (_shouldShowPlayerSix(number)) {
@@ -138,6 +126,20 @@ class GameProvider with ChangeNotifier {
     }
     if (_isBotInningsStart()) {
       _handleBotBattingEvents(number);
+    }
+  }
+
+  void _handleGameOverEvents() {
+    final playerScore = _state.player.score;
+    final botScore = _state.bot.score;
+
+    if (playerScore > botScore) {
+      _overlayEvent = OverlayEvent.gameWon;
+      _overlayData = playerScore.toString();
+    } else if (playerScore < botScore) {
+      _overlayEvent = OverlayEvent.gameLost;
+    } else {
+      _overlayEvent = OverlayEvent.gameDraw;
     }
   }
 
